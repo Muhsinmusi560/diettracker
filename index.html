@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>KeralaDiet — Malabar Nutrition</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080B12;--ink2:#10141E;--ink3:#171C28;--ink4:#1E2434;--ink5:#252C3D;
+  --gold:#D4922A;--gold2:#F0B44A;--gold3:#FDD58C;
+  --gold-glow:rgba(212,146,42,0.20);--gold-dim:rgba(212,146,42,0.11);--gold-dim2:rgba(212,146,42,0.06);
+  --teal:#26C0B4;--teal-dim:rgba(38,192,180,0.12);
+  --rose:#E8526A;--rose-dim:rgba(232,82,106,0.12);
+  --sage:#45C47A;--sage-dim:rgba(69,196,122,0.12);
+  --blue:#5B8DEF;--blue-dim:rgba(91,141,239,0.12);
+  --purple:#9B6EE8;--purple-dim:rgba(155,110,232,0.12);
+  --text:#EEE8DF;--text2:#9BA8B8;--text3:#4E5D72;--text4:#2E3848;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.10);--border3:rgba(255,255,255,0.15);
+  --r:20px;--r2:14px;--r3:10px;--r4:8px;
+  --shadow:0 8px 32px rgba(0,0,0,0.5);
+  --shadow2:0 2px 12px rgba(0,0,0,0.3);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── SPLASH ─── */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;transition:opacity 0.5s ease;
+}
+#splash.hide{opacity:0;pointer-events:none;}
+.splash-logo{
+  width:72px;height:72px;border-radius:22px;
+  background:linear-gradient(135deg,#6B3410,var(--gold),var(--gold3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+  box-shadow:0 0 60px var(--gold-glow),0 0 120px rgba(212,146,42,0.1);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 40px var(--gold-glow);}50%{box-shadow:0 0 80px var(--gold-glow),0 0 160px rgba(212,146,42,0.08);}}
+.splash-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--text);}
+.splash-title em{color:var(--gold);font-style:normal;}
+.splash-sub{font-size:13px;color:var(--text3);letter-spacing:1px;}
+.splash-bar{width:120px;height:2px;background:var(--ink4);border-radius:99px;overflow:hidden;margin-top:8px;}
+.splash-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold3));border-radius:99px;animation:load 1.6s ease forwards;}
+@keyframes load{from{width:0%;}to{width:100%;}}
+
+/* ─── HEADER ─── */
+.hdr{
+  position:sticky;top:0;z-index:200;
+  background:rgba(8,11,18,0.90);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.hdr-inner{
+  max-width:520px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;height:56px;
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-mark{
+  width:30px;height:30px;border-radius:9px;
+  background:linear-gradient(135deg,#6B3410,var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;box-shadow:0 0 14px var(--gold-glow);
+}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;}
+.logo-name em{color:var(--gold);font-style:normal;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.hdr-streak{
+  display:flex;align-items:center;gap:5px;
+  background:var(--gold-dim);border:1px solid rgba(212,146,42,0.18);
+  border-radius:99px;padding:5px 10px;
+  font-size:11px;font-weight:700;color:var(--gold);
+}
+.hdr-date{font-size:11px;color:var(--text3);font-weight:500;}
+
+/* ─── BOTTOM NAV ─── */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(10,13,20,0.96);backdrop-filter:blur(28px);
+  border-top:1px solid var(--border);
+  padding-bottom:env(safe-area-inset-bottom,8px);
+}
+.bnav-inner{max-width:520px;margin:0 auto;display:flex;}
+.nb{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:3px;padding:9px 4px 10px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--text3);transition:all 0.2s;
+  font-size:10px;font-weight:700;letter-spacing:0.3px;
+  position:relative;
+}
+.nb-icon{font-size:19px;line-height:1;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);}
+.nb.on{color:var(--gold);}
+.nb.on .nb-icon{transform:scale(1.15) translateY(-1px);}
+.nb-dot{
+  position:absolute;top:8px;right:calc(50% - 12px);
+  width:6px;height:6px;border-radius:50%;
+  background:var(--rose);border:2px solid var(--ink);
+  display:none;
+}
+.nb-dot.show{display:block;}
+
+/* ─── PAGES ─── */
+.page{display:none;padding:16px 18px 100px;max-width:520px;margin:0 auto;}
+.page.active{display:block;}
+
+/* ─── TYPE ─── */
+.eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:5px;
+}
+.pg-title{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:600;line-height:1.15;
+  color:var(--text);margin-bottom:4px;
+}
+.pg-sub{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:20px;}
+
+/* ─── CARDS ─── */
+.card{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;margin-bottom:12px;
+}
+.card-hd{
+  font-size:10px;font-weight:800;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--text3);
+  margin-bottom:14px;display:flex;align-items:center;gap:7px;
+}
+
+/* ─── HERO ─── */
+.hero{
+  border-radius:var(--r);padding:22px 20px 20px;margin-bottom:12px;
+  position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#0E1420 0%,#16100A 100%);
+  border:1px solid rgba(212,146,42,0.18);
+}
+.hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(212,146,42,0.14) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(212,146,42,0.12);border:1px solid rgba(212,146,42,0.22);
+  border-radius:99px;padding:4px 11px;
+  font-size:10px;font-weight:800;color:var(--gold);
+  letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;
+}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:600;line-height:1.1;
+  color:var(--text);margin-bottom:6px;
+}
+.hero-name span{color:var(--gold);}
+.hero-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+.hero-desc strong{color:var(--text);}
+.hero-stats{
+  display:flex;gap:16px;margin-top:14px;
+  padding-top:14px;border-top:1px solid var(--border);
+}
+.hs{flex:1;text-align:center;}
+.hs-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold);}
+.hs-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-top:1px;}
+
+/* ─── CALORIE RING ─── */
+.ring-section{display:flex;align-items:center;gap:18px;padding:4px 0 16px;}
+.ring-wrap{position:relative;width:136px;height:136px;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-center{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);text-align:center;
+}
+.ring-num{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:700;color:var(--text);line-height:1;
+}
+.ring-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+.ring-right{flex:1;display:flex;flex-direction:column;gap:10px;}
+.rs{border-left:2px solid var(--border);padding-left:12px;}
+.rs-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:1px;}
+.rs-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--text);}
+.rs-val.a{color:var(--gold);}.rs-val.g{color:var(--sage);}.rs-val.r{color:var(--rose);}
+
+/* ─── WATER TRACKER ─── */
+.water-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.water-label{font-size:12px;font-weight:700;color:var(--text2);}
+.water-glasses{display:flex;gap:5px;}
+.wg{
+  width:28px;height:28px;border-radius:8px;
+  border:1.5px solid var(--border2);
+  background:var(--ink4);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;transition:all 0.18s;
+}
+.wg.full{background:var(--blue-dim);border-color:rgba(91,141,239,0.4);}
+.water-count{font-size:12px;color:var(--text3);font-weight:600;}
+
+/* ─── QUICK LOG ─── */
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px;}
+.qcard{
+  background:var(--ink3);border:1px solid var(--border);
+  border-radius:var(--r3);padding:10px 8px;
+  text-align:center;cursor:pointer;transition:all 0.16s;
+}
+.qcard:active{transform:scale(0.96);}
+.qcard-icon{font-size:20px;margin-bottom:4px;}
+.qcard-name{font-size:10px;font-weight:700;color:var(--text2);line-height:1.3;}
+.qcard-cal{font-size:10px;color:var(--gold);font-weight:700;margin-top:2px;}
+
+/* ─── MACRO BARS ─── */
+.mbar{margin-bottom:10px;}
+.mbar:last-child{margin-bottom:0;}
+.mbar-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.mbar-name{font-size:12px;font-weight:600;color:var(--text2);}
+.mbar-val{font-size:11px;color:var(--text3);font-weight:500;}
+.mbar-track{height:5px;background:var(--ink4);border-radius:99px;overflow:hidden;}
+.mbar-fill{height:100%;border-radius:99px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);}
+.mbar-fill.p{background:linear-gradient(90deg,#3B6EEF,#60A5FA);}
+.mbar-fill.c{background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.mbar-fill.f{background:linear-gradient(90deg,var(--sage),#6EE7B7);}
+
+/* ─── STAT GRID ─── */
+.sgrid{display:grid;gap:8px;margin-bottom:12px;}
+.sg2{grid-template-columns:1fr 1fr;}
+.sg3{grid-template-columns:1fr 1fr 1fr;}
+.sg4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.sc{
+  background:var(--ink3);border:1px solid var(--border);
+  border-radius:var(--r2);padding:13px 10px;text-align:center;
+}
+.sc-val{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:600;color:var(--text);
+  line-height:1;margin-bottom:3px;
+}
+.sc-val.a{color:var(--gold);}.sc-val.g{color:var(--sage);}
+.sc-val.r{color:var(--rose);}.sc-val.t{color:var(--teal);}
+.sc-val.b{color:var(--blue);}.sc-val.p{color:var(--purple);}
+.sc-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;}
+
+/* ─── FORMS ─── */
+.fg{margin-bottom:13px;}
+.fl{display:block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;}
+.fi,.fs{
+  width:100%;background:var(--ink3);border:1px solid var(--border2);
+  border-radius:var(--r2);padding:12px 14px;
+  font-size:14px;font-weight:500;color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+  -webkit-appearance:none;appearance:none;
+}
+.fs{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234E5D72'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
+}
+.fi::placeholder{color:var(--text3);}
+.fi:focus,.fs:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* ─── BUTTONS ─── */
+.btn{
+  width:100%;padding:14px;border-radius:var(--r2);border:none;
+  font-size:14px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;
+  cursor:pointer;transition:all 0.18s;letter-spacing:0.2px;
+}
+.btn-gold{
+  background:linear-gradient(135deg,#8B4A0A,var(--gold),var(--gold2));
+  color:#0C0E14;box-shadow:0 4px 24px rgba(212,146,42,0.28);
+}
+.btn-gold:active{transform:scale(0.98);}
+.btn-ghost{background:var(--ink3);color:var(--text2);border:1px solid var(--border2);}
+.btn-ghost:active{transform:scale(0.98);}
+.btn-teal{background:linear-gradient(135deg,#1A8C84,var(--teal));color:#0C0E14;box-shadow:0 4px 20px rgba(38,192,180,0.25);}
+
+/* ─── PILL BUTTONS ─── */
+.pill{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:7px 13px;border-radius:99px;
+  font-size:12px;font-weight:700;cursor:pointer;
+  border:none;font-family:'Plus Jakarta Sans',sans-serif;
+  transition:all 0.15s;white-space:nowrap;
+}
+.pill-gold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(212,146,42,0.22);}
+.pill-rose{background:var(--rose-dim);color:var(--rose);border:1px solid rgba(232,82,106,0.22);}
+.pill-teal{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(38,192,180,0.22);}
+.pill-ghost{background:var(--ink4);color:var(--text2);border:1px solid var(--border2);}
+.pill:active{transform:scale(0.96);}
+
+/* ─── FOOD SEARCH ─── */
+.srch-wrap{position:relative;margin-bottom:10px;}
+.srch-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;}
+.srch{
+  width:100%;background:var(--ink3);border:1px solid var(--border2);
+  border-radius:var(--r2);padding:12px 40px 12px 42px;
+  font-size:14px;font-weight:500;color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.srch::placeholder{color:var(--text3);}
+.srch:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim);}
+.srch-clear{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  width:20px;height:20px;border-radius:50%;
+  background:var(--ink5);border:none;color:var(--text3);
+  font-size:11px;cursor:pointer;display:none;
+  align-items:center;justify-content:center;
+}
+.srch-clear.show{display:flex;}
+
+/* ─── CAT SCROLL ─── */
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px;padding:2px 0;}
+.cats::-webkit-scrollbar{display:none;}
+.cat{
+  padding:6px 13px;border-radius:99px;
+  font-size:11px;font-weight:700;white-space:nowrap;
+  cursor:pointer;transition:all 0.15s;
+  background:var(--ink3);border:1px solid var(--border2);
+  color:var(--text3);font-family:'Plus Jakarta Sans',sans-serif;
+}
+.cat.on{background:var(--gold-dim);border-color:rgba(212,146,42,0.3);color:var(--gold);}
+
+/* ─── FOOD COUNT ─── */
+.fcount{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:7px;}
+
+/* ─── DROPDOWN ─── */
+.dd{
+  background:var(--ink3);border:1px solid var(--border2);
+  border-radius:var(--r2);max-height:280px;overflow-y:auto;
+  margin-bottom:10px;display:none;box-shadow:var(--shadow);
+}
+.dd.open{display:block;}
+.ddi{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;cursor:pointer;
+  border-bottom:1px solid var(--border);
+  transition:background 0.12s;gap:10px;
+}
+.ddi:last-child{border-bottom:none;}
+.ddi:active{background:var(--ink4);}
+.ddi-left{flex:1;min-width:0;}
+.ddi-name{font-size:13px;color:var(--text);font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ddi-sub{font-size:11px;color:var(--text3);}
+.ddi-right{text-align:right;flex-shrink:0;}
+.ddi-cal{font-size:13px;color:var(--gold);font-weight:700;}
+.ddi-mac{font-size:10px;color:var(--text3);}
+
+/* ─── SELECTED ROW ─── */
+.sel-row{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--ink3),#1C1008);
+  border:1px solid rgba(212,146,42,0.22);
+  border-radius:var(--r2);padding:12px 14px;margin-bottom:10px;
+}
+.sel-info{flex:1;min-width:0;}
+.sel-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sel-per{font-size:11px;color:var(--gold);}
+.qty{
+  width:64px;background:var(--ink5);border:1px solid var(--border2);
+  border-radius:var(--r4);padding:8px 6px;
+  font-size:14px;font-weight:700;color:var(--text);
+  text-align:center;outline:none;font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+/* ─── RECENT FOODS ─── */
+.recent-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
+.rchip{
+  display:flex;align-items:center;gap:4px;
+  padding:5px 10px;border-radius:99px;
+  background:var(--ink4);border:1px solid var(--border);
+  font-size:11px;font-weight:600;color:var(--text2);
+  cursor:pointer;transition:all 0.15s;
+  max-width:160px;
+}
+.rchip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rchip:active{background:var(--ink5);}
+
+/* ─── MEAL SECTIONS ─── */
+.meal-block{margin-bottom:10px;}
+.meal-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 0 8px;}
+.meal-title{font-size:12px;font-weight:700;color:var(--text2);display:flex;align-items:center;gap:7px;}
+.meal-badge{
+  font-size:10px;font-weight:700;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(212,146,42,0.18);
+  border-radius:99px;padding:3px 9px;
+}
+.log-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);gap:8px;
+}
+.log-item:last-child{border-bottom:none;}
+.log-left{flex:1;min-width:0;}
+.log-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.log-meta{font-size:11px;color:var(--text3);}
+.log-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.log-cal{font-size:13px;font-weight:700;color:var(--gold);}
+
+/* ─── PLAN CARDS ─── */
+.pcards{display:flex;flex-direction:column;gap:8px;}
+.pcard{
+  background:var(--ink3);border:1px solid var(--border);
+  border-radius:var(--r2);padding:14px 14px 14px 18px;
+  position:relative;overflow:hidden;
+}
+.pcard::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:linear-gradient(180deg,var(--gold),var(--gold2));
+  border-radius:3px 0 0 3px;
+}
+.pc-time{font-size:9px;color:var(--text3);font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:3px;}
+.pc-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;}
+.pc-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.pc-alts{
+  margin-top:8px;padding:8px 10px;
+  background:var(--ink4);border-radius:var(--r4);
+  font-size:11px;color:var(--text3);line-height:1.6;
+}
+.pc-alts strong{color:var(--teal);font-weight:700;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;}
+.ptag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;}
+.ptag-c{background:var(--gold-dim);color:var(--gold);}
+.ptag-p{background:var(--teal-dim);color:var(--teal);}
+.ptag-cb{background:rgba(251,191,36,0.1);color:#FBBF24;}
+
+/* ─── TIPS ─── */
+.tip{
+  background:var(--ink3);border:1px solid var(--border);
+  border-left:3px solid var(--gold);border-radius:var(--r2);
+  padding:13px 14px;margin-bottom:8px;
+  font-size:13px;color:var(--text2);line-height:1.65;
+}
+.tip strong{color:var(--text);font-weight:700;}
+.tip.warn{border-left-color:var(--rose);}
+.tip.info{border-left-color:var(--teal);}
+
+/* ─── BMI GAUGE ─── */
+.bmi-track{
+  width:100%;height:8px;border-radius:99px;margin:10px 0 6px;
+  background:linear-gradient(90deg,#3B82F6 0%,#22C55E 28%,#FACC15 55%,#F97316 78%,#EF4444 100%);
+  position:relative;
+}
+.bmi-pin{
+  position:absolute;top:-5px;width:18px;height:18px;border-radius:50%;
+  background:var(--text);border:3px solid var(--ink);
+  transform:translateX(-50%);
+  transition:left 0.8s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.bmi-marks{display:flex;justify-content:space-between;font-size:9px;color:var(--text3);font-weight:600;}
+
+/* ─── PROGRESS BAR ─── */
+.pbar{margin-bottom:0;}
+.pbar-hd{display:flex;justify-content:space-between;margin-bottom:6px;}
+.pbar-lbl{font-size:12px;font-weight:600;color:var(--text2);}
+.pbar-val{font-size:11px;color:var(--text3);}
+.pbar-track{height:5px;background:var(--ink4);border-radius:99px;overflow:hidden;}
+.pbar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--sage),#6EE7B7);transition:width 0.6s ease;}
+
+/* ─── WEIGHT LOG ─── */
+.wt-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 0;border-bottom:1px solid var(--border);
+}
+.wt-item:last-child{border-bottom:none;}
+.wt-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold);}
+.wt-date{font-size:11px;color:var(--text3);font-weight:500;margin-top:1px;}
+
+/* ─── CALORIE BURN CALC ─── */
+.burn-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.burn-item{
+  flex:1;min-width:100px;
+  background:var(--ink4);border:1px solid var(--border);
+  border-radius:var(--r3);padding:10px;text-align:center;
+  cursor:pointer;transition:all 0.15s;
+}
+.burn-item.on{background:var(--gold-dim);border-color:rgba(212,146,42,0.3);}
+.burn-icon{font-size:18px;margin-bottom:4px;}
+.burn-name{font-size:11px;color:var(--text2);font-weight:600;}
+.burn-cal{font-size:10px;color:var(--text3);margin-top:1px;}
+
+/* ─── MISC ─── */
+.div{border:none;border-top:1px solid var(--border);margin:14px 0;}
+.empty{text-align:center;padding:36px 16px;}
+.empty-icon{font-size:42px;margin-bottom:10px;}
+.empty p{font-size:13px;color:var(--text3);line-height:1.7;}
+.toast{
+  position:fixed;bottom:84px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(22,27,40,0.97);backdrop-filter:blur(20px);
+  border:1px solid var(--border2);border-radius:99px;
+  padding:11px 20px;font-size:13px;font-weight:700;color:var(--text);
+  z-index:9998;opacity:0;transition:all 0.28s ease;
+  white-space:nowrap;pointer-events:none;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:var(--ink5);border-radius:99px;}
+.section-gap{margin-top:20px;}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">🌿</div>
+  <div class="splash-title">Kerala<em>Diet</em></div>
+  <div class="splash-sub">MALABAR NUTRITION PLANNER</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="logo">
+      <div class="logo-mark">🌿</div>
+      <div class="logo-name">Kerala<em>Diet</em></div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-streak" id="streakBadge" style="display:none">🔥 <span id="streakNum">0</span> day</div>
+      <div class="hdr-date" id="hdrDate"></div>
+    </div>
+  </div>
+</header>
+<div class="toast" id="toast"></div>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <div id="homeHero"></div>
+
+  <!-- Calorie ring -->
+  <div class="card">
+    <div class="card-hd">⚡ Today's Calories</div>
+    <div class="ring-section">
+      <div class="ring-wrap">
+        <svg width="136" height="136" viewBox="0 0 136 136">
+          <circle cx="68" cy="68" r="56" fill="none" stroke="#1E2434" stroke-width="11"/>
+          <circle cx="68" cy="68" r="56" fill="none" stroke="url(#rg)" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="351.86"
+            id="ringArc" stroke-dashoffset="351.86"/>
+          <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8B4A0A"/>
+            <stop offset="60%" stop-color="#D4922A"/>
+            <stop offset="100%" stop-color="#F0B44A"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-num" id="ringNum">0</div>
+          <div class="ring-lbl">kcal</div>
+        </div>
+      </div>
+      <div class="ring-right">
+        <div class="rs">
+          <div class="rs-lbl">Goal</div>
+          <div class="rs-val a" id="rsGoal">—</div>
+        </div>
+        <div class="rs">
+          <div class="rs-lbl">Remaining</div>
+          <div class="rs-val g" id="rsLeft">—</div>
+        </div>
+        <div class="rs">
+          <div class="rs-lbl">Items</div>
+          <div class="rs-val" id="rsItems">0</div>
+        </div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="mbar-hd"><span class="mbar-name">Protein</span><span class="mbar-val" id="mbP">0g</span></div>
+      <div class="mbar-track"><div class="mbar-fill p" id="mbPf" style="width:0%"></div></div>
+    </div>
+    <div class="mbar">
+      <div class="mbar-hd"><span class="mbar-name">Carbs</span><span class="mbar-val" id="mbC">0g</span></div>
+      <div class="mbar-track"><div class="mbar-fill c" id="mbCf" style="width:0%"></div></div>
+    </div>
+    <div class="mbar">
+      <div class="mbar-hd"><span class="mbar-name">Fats</span><span class="mbar-val" id="mbF">0g</span></div>
+      <div class="mbar-track"><div class="mbar-fill f" id="mbFf" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- Water tracker -->
+  <div class="card">
+    <div class="card-hd">💧 Water Intake</div>
+    <div class="water-row">
+      <div class="water-label">Daily Goal: 8 glasses</div>
+      <div class="water-count"><span id="waterCount">0</span>/8 glasses</div>
+    </div>
+    <div class="water-glasses" id="waterGlasses"></div>
+  </div>
+
+  <!-- Quick add -->
+  <div class="card">
+    <div class="card-hd">⚡ Quick Add</div>
+    <div class="quick-grid" id="quickGrid"></div>
+  </div>
+
+  <button class="btn btn-gold" onclick="showPage('calories')" style="margin-top:2px;">+ Log Full Meal</button>
+</div>
+
+<!-- ══ PROFILE ══ -->
+<div class="page" id="page-profile">
+  <div class="eyebrow">Setup</div>
+  <div class="pg-title">Your Body Profile</div>
+  <div class="pg-sub">Fill in your details to get personalised targets and a Kerala meal plan.</div>
+
+  <div class="card">
+    <div class="card-hd">👤 Basic Info</div>
+    <div class="fg"><label class="fl">Your Name</label><input class="fi" id="pName" placeholder="e.g. Musii" type="text"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Age</label><input class="fi" id="pAge" placeholder="23" type="number" min="10" max="99"></div>
+      <div class="fg"><label class="fl">Gender</label>
+        <select class="fs" id="pGender"><option value="male">Male</option><option value="female">Female</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd">📏 Measurements</div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Height (cm)</label><input class="fi" id="pHeight" placeholder="170" type="number"></div>
+      <div class="fg"><label class="fl">Weight (kg)</label><input class="fi" id="pWeight" placeholder="78" type="number"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Target (kg)</label><input class="fi" id="pTarget" placeholder="68" type="number"></div>
+      <div class="fg"><label class="fl">Waist (cm)</label><input class="fi" id="pWaist" placeholder="optional" type="number"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd">🏃 Activity & Goals</div>
+    <div class="fg"><label class="fl">Activity Level</label>
+      <select class="fs" id="pActivity">
+        <option value="1.2">Sedentary — desk job, no exercise</option>
+        <option value="1.375">Light — 1–2 days/week gym</option>
+        <option value="1.55" selected>Moderate — 3–4 days/week</option>
+        <option value="1.725">Active — 5–6 days/week gym</option>
+        <option value="1.9">Very Active — daily intense training</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Primary Goal</label>
+      <select class="fs" id="pGoal">
+        <option value="cut">Fat Loss / Cut</option>
+        <option value="recomp">Body Recomposition</option>
+        <option value="maintain">Maintain Weight</option>
+        <option value="bulk">Muscle Gain / Bulk</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Diet Type</label>
+      <select class="fs" id="pDiet">
+        <option value="nonveg">Non-Vegetarian (All Foods)</option>
+        <option value="eggetarian">Eggetarian</option>
+        <option value="veg">Vegetarian</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn btn-gold" onclick="saveProfile()">Calculate & Save Profile</button>
+
+  <div id="pResults" style="display:none;margin-top:16px;">
+    <div class="card">
+      <div class="card-hd">🧮 BMI Analysis</div>
+      <div class="sgrid sg2">
+        <div class="sc"><div class="sc-val a" id="rBMI">—</div><div class="sc-lbl">BMI</div></div>
+        <div class="sc"><div class="sc-val g" id="rCat">—</div><div class="sc-lbl">Category</div></div>
+      </div>
+      <div class="bmi-track"><div class="bmi-pin" id="bmiPin" style="left:30%"></div></div>
+      <div class="bmi-marks"><span>Under</span><span>Normal</span><span>Over</span><span>Obese</span></div>
+      <div class="sgrid sg2" style="margin-top:10px;">
+        <div class="sc"><div class="sc-val" id="rLose">—</div><div class="sc-lbl">To Lose</div></div>
+        <div class="sc"><div class="sc-val t" id="rWeeks">—</div><div class="sc-lbl">Est. Weeks</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd">🔥 Daily Targets</div>
+      <div class="sgrid sg2">
+        <div class="sc"><div class="sc-val" id="rBMR">—</div><div class="sc-lbl">BMR</div></div>
+        <div class="sc"><div class="sc-val" id="rTDEE">—</div><div class="sc-lbl">TDEE</div></div>
+      </div>
+      <div class="sc" style="margin:8px 0 14px;background:linear-gradient(135deg,#160E04,var(--ink4));border-color:rgba(212,146,42,0.28);">
+        <div class="sc-val a" id="rGoal" style="font-size:34px;">—</div>
+        <div class="sc-lbl">Calories Per Day</div>
+      </div>
+      <div class="sgrid sg3">
+        <div class="sc"><div class="sc-val t" id="rProt">—g</div><div class="sc-lbl">Protein</div></div>
+        <div class="sc"><div class="sc-val a" id="rCarb">—g</div><div class="sc-lbl">Carbs</div></div>
+        <div class="sc"><div class="sc-val g" id="rFat">—g</div><div class="sc-lbl">Fats</div></div>
+      </div>
+    </div>
+
+    <!-- Calorie burn estimator -->
+    <div class="card">
+      <div class="card-hd">🏋️ Calorie Burn Estimator</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:10px;">Select an activity to see approx. calories burned (based on your weight)</div>
+      <div class="burn-row" id="burnRow"></div>
+      <div class="sc" style="margin-top:2px;background:var(--ink4);">
+        <div class="sc-val r" id="burnResult">—</div>
+        <div class="sc-lbl">Estimated Calories Burned</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CALORIES ══ -->
+<div class="page" id="page-calories">
+  <div class="eyebrow">Log Meals</div>
+  <div class="pg-title">Calorie Tracker</div>
+  <div class="pg-sub">400+ foods — Kerala classics, street food, restaurants, cafes, pizza, burgers & more.</div>
+
+  <div class="card">
+    <div class="card-hd">🍽️ Add Food</div>
+    <div class="fg">
+      <label class="fl">Meal Time</label>
+      <select class="fs" id="mealTime">
+        <option value="Early Morning">🌙 Early Morning (4–6 AM)</option>
+        <option value="Breakfast">☀️ Breakfast (7–9 AM)</option>
+        <option value="Morning Snack">🍪 Morning Snack (10–11 AM)</option>
+        <option value="Lunch">🌤 Lunch (12–2 PM)</option>
+        <option value="Evening Snack">🌇 Evening Snack (4–6 PM)</option>
+        <option value="Dinner">🌙 Dinner (7–9 PM)</option>
+        <option value="Post-Workout">💪 Post-Workout</option>
+      </select>
+    </div>
+    <div class="srch-wrap">
+      <span class="srch-icon">🔍</span>
+      <input class="srch" id="foodSrch" placeholder="Search pizza, shawarma, mani, chai…" oninput="filterFoods()" onfocus="filterFoods()">
+      <button class="srch-clear" id="srchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="cats" id="catPills"></div>
+    <div class="fcount" id="fcount"></div>
+    <div class="dd" id="foodDD"></div>
+    <div class="sel-row" id="selRow" style="display:none;">
+      <div class="sel-info">
+        <div class="sel-name" id="selName">—</div>
+        <div class="sel-per" id="selPer">—</div>
+      </div>
+      <input class="qty" id="qtyIn" type="number" value="1" min="0.25" step="0.25">
+      <button class="pill pill-gold" onclick="addFood()">Add</button>
+    </div>
+    <!-- Recent foods -->
+    <div id="recentSection" style="display:none;">
+      <div style="font-size:10px;font-weight:800;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">🕐 Recent</div>
+      <div class="recent-chips" id="recentChips"></div>
+    </div>
+  </div>
+
+  <div id="mealLog"></div>
+
+  <div class="card" id="dayTotal" style="display:none;">
+    <div class="card-hd">📊 Today's Total</div>
+    <div class="sgrid sg2">
+      <div class="sc"><div class="sc-val a" id="totCal">0</div><div class="sc-lbl">Calories</div></div>
+      <div class="sc"><div class="sc-val g" id="totRem">—</div><div class="sc-lbl">Remaining</div></div>
+    </div>
+    <div class="div"></div>
+    <div class="sgrid sg4">
+      <div class="sc"><div class="sc-val t" id="totP">0g</div><div class="sc-lbl">Protein</div></div>
+      <div class="sc"><div class="sc-val a" id="totCb">0g</div><div class="sc-lbl">Carbs</div></div>
+      <div class="sc"><div class="sc-val g" id="totF">0g</div><div class="sc-lbl">Fat</div></div>
+      <div class="sc"><div class="sc-val b" id="totItems">0</div><div class="sc-lbl">Items</div></div>
+    </div>
+  </div>
+  <button class="btn btn-ghost" style="margin-top:4px;" onclick="clearDay()">🗑  Clear Today's Log</button>
+</div>
+
+<!-- ══ DIET PLAN ══ -->
+<div class="page" id="page-dietplan">
+  <div class="eyebrow">Personalised</div>
+  <div class="pg-title">Your Kerala Diet Plan</div>
+  <div class="pg-sub">A full day plan with Kerala home meals + restaurant alternatives for every meal.</div>
+  <div id="planContent"></div>
+</div>
+
+<!-- ══ PROGRESS ══ -->
+<div class="page" id="page-tracker">
+  <div class="eyebrow">Journey</div>
+  <div class="pg-title">Progress Tracker</div>
+  <div class="pg-sub">Log weight daily. Track your streak. Watch the transformation.</div>
+
+  <div class="card">
+    <div class="card-hd">⚖️ Log Today's Weight</div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Weight (kg)</label><input class="fi" id="logWt" placeholder="77.4" type="number" step="0.1"></div>
+      <div class="fg"><label class="fl">Date</label><input class="fi" id="logDate" type="date"></div>
+    </div>
+    <button class="btn btn-gold" onclick="logWeight()">Save Entry</button>
+  </div>
+
+  <div id="progStats" style="display:none;">
+    <div class="card">
+      <div class="card-hd">📈 Weight Journey</div>
+      <div class="sgrid sg3">
+        <div class="sc"><div class="sc-val a" id="pgStart">—</div><div class="sc-lbl">Start</div></div>
+        <div class="sc"><div class="sc-val" id="pgNow">—</div><div class="sc-lbl">Current</div></div>
+        <div class="sc"><div class="sc-val g" id="pgLost">—</div><div class="sc-lbl">Lost</div></div>
+      </div>
+      <div class="div"></div>
+      <div class="pbar">
+        <div class="pbar-hd"><span class="pbar-lbl">Goal Progress</span><span class="pbar-val" id="pgPct">0%</span></div>
+        <div class="pbar-track"><div class="pbar-fill" id="pgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd">📋 Weight Log</div>
+    <div id="wtLog"><div class="empty"><div class="empty-icon">⚖️</div><p>No entries yet.<br>Start logging daily!</p></div></div>
+  </div>
+
+  <div class="eyebrow section-gap">Kannur Fitness Wisdom</div>
+  <div class="tip"><strong>🌅 Morning ritual:</strong> Warm jeera water + soaked almonds before any food — kickstarts metabolism, zero sugar.</div>
+  <div class="tip"><strong>🍚 Rice upgrade:</strong> Switch to Matta (red Kerala) rice — lower GI, more fibre, keeps you full 40% longer than white rice.</div>
+  <div class="tip"><strong>🐟 Fish first:</strong> Sardine, Tuna, Mackerel (Ayala) — the cheapest, leanest protein in Kannur. Curry over deep fry.</div>
+  <div class="tip"><strong>☕ Chai math:</strong> 4 cups Kerala chai (full milk+sugar) = 440 kcal. Switch to Sulaimani or black tea and save those calories for real food.</div>
+  <div class="tip info"><strong>💪 Gym + diet:</strong> Without diet, even 1 hour gym only burns ~300 kcal. What you eat matters 80%. Track every meal.</div>
+  <div class="tip info"><strong>🥗 Protein target:</strong> For muscle building, aim 1.6–2g protein per kg bodyweight. A 70kg person needs 112–140g/day.</div>
+  <div class="tip warn"><strong>⚠️ Bakery trap:</strong> Egg puff 295 · Chicken puff 325 · Parotta 310 · Sharjah shake 345 kcal. Love them, but count them.</div>
+  <div class="tip warn"><strong>⚠️ Weekend reset:</strong> One cheat meal is fine. One cheat day = 1000–2000 extra kcal = almost 1 week of progress erased.</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <div class="bnav-inner">
+    <button class="nb on" onclick="showPage('home')" id="nb-home"><div class="nb-icon">🏠</div>Home</button>
+    <button class="nb" onclick="showPage('profile')" id="nb-profile"><div class="nb-icon">👤</div>Profile</button>
+    <button class="nb" onclick="showPage('calories')" id="nb-calories"><div class="nb-icon">🍽️</div>Calories<div class="nb-dot" id="logDot"></div></button>
+    <button class="nb" onclick="showPage('dietplan')" id="nb-dietplan"><div class="nb-icon">🥗</div>Plan</button>
+    <button class="nb" onclick="showPage('tracker')" id="nb-tracker"><div class="nb-icon">📈</div>Progress</button>
+  </div>
+</nav>
+
+<script>
+const KERALA_FOODS = [
+  {id:'r1',name:'Matta Rice / Red Kerala Rice (cooked)',cat:'Rice & Kanji',cal:165,prot:3.5,carb:36,fat:0.4,unit:'1 cup (150g)'},
+  {id:'r2',name:'White Rice (cooked)',cat:'Rice & Kanji',cal:206,prot:4.2,carb:45,fat:0.4,unit:'1 cup (180g)'},
+  {id:'r3',name:'Kanji / Rice Porridge (plain)',cat:'Rice & Kanji',cal:100,prot:2,carb:22,fat:0.2,unit:'1 bowl (250ml)'},
+  {id:'r4',name:'Kanji + Payar (rice + green gram)',cat:'Rice & Kanji',cal:160,prot:7,carb:28,fat:1.5,unit:'1 bowl (250ml)'},
+  {id:'r5',name:'Kappa / Tapioca (boiled)',cat:'Rice & Kanji',cal:160,prot:1.5,carb:38,fat:0.3,unit:'1 cup (150g)'},
+  {id:'r6',name:'Kappa + Fish Curry',cat:'Rice & Kanji',cal:320,prot:22,carb:38,fat:9,unit:'1 plate'},
+  {id:'r7',name:'Wheat Kanji / Daliya (cooked)',cat:'Rice & Kanji',cal:135,prot:4.5,carb:28,fat:1,unit:'1 bowl (200ml)'},
+  {id:'r8',name:'Oats Kanji / Oatmeal',cat:'Rice & Kanji',cal:150,prot:5,carb:27,fat:3,unit:'1 bowl (200g)'},
+  {id:'r9',name:'Broken Wheat Upma',cat:'Rice & Kanji',cal:180,prot:5,carb:32,fat:4,unit:'1 bowl (180g)'},
+  {id:'r10',name:'Semiya / Vermicelli Upma',cat:'Rice & Kanji',cal:200,prot:5,carb:38,fat:4,unit:'1 bowl (180g)'},
+  {id:'p1',name:'Puttu (plain rice)',cat:'Puttu & Appam',cal:210,prot:4.5,carb:44,fat:1.2,unit:'1 cylinder (100g)'},
+  {id:'p2',name:'Puttu + Kadala Curry (set)',cat:'Puttu & Appam',cal:400,prot:14,carb:68,fat:9,unit:'1 full set'},
+  {id:'p3',name:'Puttu + Banana (Pazham)',cat:'Puttu & Appam',cal:290,prot:5,carb:60,fat:1.5,unit:'1 set'},
+  {id:'p4',name:'Puttu + Chicken Curry',cat:'Puttu & Appam',cal:480,prot:32,carb:48,fat:17,unit:'1 set'},
+  {id:'p5',name:'Wheat Puttu',cat:'Puttu & Appam',cal:195,prot:5.5,carb:40,fat:2,unit:'1 cylinder (100g)'},
+  {id:'p6',name:'Ragi / Finger Millet Puttu',cat:'Puttu & Appam',cal:185,prot:5,carb:38,fat:1.5,unit:'1 cylinder (100g)'},
+  {id:'p7',name:'Appam (vellayappam)',cat:'Puttu & Appam',cal:95,prot:2,carb:19,fat:1.5,unit:'1 appam (60g)'},
+  {id:'p8',name:'Appam + Chicken Stew',cat:'Puttu & Appam',cal:380,prot:24,carb:38,fat:14,unit:'2 appam + stew'},
+  {id:'p9',name:'Appam + Egg Curry',cat:'Puttu & Appam',cal:340,prot:18,carb:36,fat:14,unit:'2 appam + curry'},
+  {id:'p10',name:'Idiyappam / Noolputtu (2 pcs)',cat:'Puttu & Appam',cal:150,prot:2.5,carb:33,fat:0.3,unit:'2 pieces (80g)'},
+  {id:'p11',name:'Idiyappam + Egg Curry',cat:'Puttu & Appam',cal:300,prot:16,carb:34,fat:13,unit:'1 set'},
+  {id:'p12',name:'Idiyappam + Coconut Milk',cat:'Puttu & Appam',cal:200,prot:3,carb:34,fat:6,unit:'1 set'},
+  {id:'p13',name:'Vellayappam / Kallappam (1 pc)',cat:'Puttu & Appam',cal:90,prot:2,carb:18,fat:1.2,unit:'1 piece'},
+  {id:'br1',name:'Malabar Pathiri (1 pc)',cat:'Parotta & Bread',cal:120,prot:2.5,carb:25,fat:1,unit:'1 pathiri (60g)'},
+  {id:'br2',name:'Wheat Pathiri',cat:'Parotta & Bread',cal:110,prot:3,carb:22,fat:1.5,unit:'1 piece (60g)'},
+  {id:'br3',name:'Kerala Maida Parotta (big)',cat:'Parotta & Bread',cal:310,prot:6,carb:50,fat:10,unit:'1 big piece (95g)'},
+  {id:'br4',name:'Kerala Parotta (small)',cat:'Parotta & Bread',cal:200,prot:4,carb:33,fat:7,unit:'1 small (65g)'},
+  {id:'br5',name:'Wheat Chapati / Roti',cat:'Parotta & Bread',cal:105,prot:3.1,carb:20,fat:1.5,unit:'1 chapati (40g)'},
+  {id:'br6',name:'Whole Wheat Porotta',cat:'Parotta & Bread',cal:240,prot:5.5,carb:38,fat:7,unit:'1 piece (78g)'},
+  {id:'br7',name:'Puri (deep fried)',cat:'Parotta & Bread',cal:150,prot:2.5,carb:18,fat:8,unit:'1 puri (35g)'},
+  {id:'br8',name:'Naan / Soft Naan',cat:'Parotta & Bread',cal:260,prot:7,carb:45,fat:5,unit:'1 naan (90g)'},
+  {id:'br9',name:'Kuboos / Arabic Bread',cat:'Parotta & Bread',cal:270,prot:9,carb:52,fat:3,unit:'1 piece (100g)'},
+  {id:'br10',name:'White Bread (2 slices)',cat:'Parotta & Bread',cal:132,prot:4.5,carb:25,fat:1.5,unit:'2 slices (60g)'},
+  {id:'br11',name:'Brown Bread (2 slices)',cat:'Parotta & Bread',cal:120,prot:4.8,carb:22,fat:1.8,unit:'2 slices (60g)'},
+  {id:'id1',name:'Idli (plain, 1 piece)',cat:'Idli & Dosa',cal:58,prot:2,carb:12,fat:0.3,unit:'1 idli (50g)'},
+  {id:'id2',name:'Idli (2 pcs) + Sambar + Chutney',cat:'Idli & Dosa',cal:220,prot:8,carb:40,fat:3,unit:'1 set'},
+  {id:'id3',name:'Rava Idli',cat:'Idli & Dosa',cal:80,prot:2.5,carb:13,fat:2.5,unit:'1 piece (55g)'},
+  {id:'id4',name:'Plain Dosa',cat:'Idli & Dosa',cal:120,prot:3,carb:22,fat:2.5,unit:'1 dosa (60g)'},
+  {id:'id5',name:'Masala Dosa',cat:'Idli & Dosa',cal:280,prot:6,carb:44,fat:9,unit:'1 dosa with filling'},
+  {id:'id6',name:'Egg Dosa',cat:'Idli & Dosa',cal:210,prot:10,carb:22,fat:9,unit:'1 dosa'},
+  {id:'id7',name:'Rava Dosa',cat:'Idli & Dosa',cal:140,prot:4,carb:22,fat:4,unit:'1 dosa'},
+  {id:'id8',name:'Medu Vada',cat:'Idli & Dosa',cal:190,prot:5,carb:23,fat:9,unit:'1 piece (60g)'},
+  {id:'id9',name:'Masala Vada / Parippu Vada',cat:'Idli & Dosa',cal:160,prot:6,carb:18,fat:7,unit:'1 piece (55g)'},
+  {id:'id10',name:'Upma (semolina)',cat:'Idli & Dosa',cal:200,prot:5,carb:34,fat:5,unit:'1 bowl (200g)'},
+  {id:'bir1',name:'Malabar Chicken Biryani',cat:'Biryani & Rice Dishes',cal:560,prot:30,carb:62,fat:19,unit:'1 plate (380g)'},
+  {id:'bir2',name:'Malabar Mutton Biryani',cat:'Biryani & Rice Dishes',cal:600,prot:32,carb:64,fat:22,unit:'1 plate (380g)'},
+  {id:'bir3',name:'Thalassery Chicken Biryani',cat:'Biryani & Rice Dishes',cal:540,prot:28,carb:60,fat:18,unit:'1 plate (360g)'},
+  {id:'bir4',name:'Fish Biryani',cat:'Biryani & Rice Dishes',cal:510,prot:28,carb:58,fat:16,unit:'1 plate (360g)'},
+  {id:'bir5',name:'Prawn Biryani',cat:'Biryani & Rice Dishes',cal:520,prot:26,carb:60,fat:16,unit:'1 plate (360g)'},
+  {id:'bir6',name:'Veg Biryani / Pulao',cat:'Biryani & Rice Dishes',cal:380,prot:9,carb:65,fat:9,unit:'1 plate (300g)'},
+  {id:'bir7',name:'Chemmeen Biryani (Prawn Malabar)',cat:'Biryani & Rice Dishes',cal:530,prot:27,carb:61,fat:17,unit:'1 plate'},
+  {id:'bir8',name:'Nei Choru (Ghee Rice)',cat:'Biryani & Rice Dishes',cal:420,prot:6,carb:70,fat:13,unit:'1 plate (250g)'},
+  {id:'bir9',name:'Ghee Rice + Chicken Curry',cat:'Biryani & Rice Dishes',cal:680,prot:32,carb:72,fat:26,unit:'1 plate set'},
+  {id:'bir10',name:'Fried Rice (egg)',cat:'Biryani & Rice Dishes',cal:380,prot:12,carb:60,fat:10,unit:'1 plate (280g)'},
+  {id:'f1',name:'Kerala Fish Curry (Sardine/Mathi)',cat:'Fish & Seafood',cal:190,prot:20,carb:5,fat:10,unit:'1 serving (150g)'},
+  {id:'f2',name:'Fried Sardine (Mathi Fry) 2 pcs',cat:'Fish & Seafood',cal:220,prot:22,carb:6,fat:13,unit:'2 pieces (100g)'},
+  {id:'f3',name:'Karimeen Pollichathu',cat:'Fish & Seafood',cal:285,prot:30,carb:4,fat:16,unit:'1 serving (150g)'},
+  {id:'f4',name:'Tuna Fish Curry (Choora)',cat:'Fish & Seafood',cal:210,prot:28,carb:3,fat:10,unit:'1 serving (150g)'},
+  {id:'f5',name:'Prawn Curry (Chemmeen)',cat:'Fish & Seafood',cal:200,prot:24,carb:6,fat:9,unit:'1 serving (150g)'},
+  {id:'f6',name:'Pomfret Fry (Avoli)',cat:'Fish & Seafood',cal:255,prot:26,carb:5,fat:14,unit:'1 piece (120g)'},
+  {id:'f7',name:'Crab Curry (Njandu Curry)',cat:'Fish & Seafood',cal:182,prot:22,carb:5,fat:8,unit:'1 serving (150g)'},
+  {id:'f8',name:'Squid Roast (Koonthal Roast)',cat:'Fish & Seafood',cal:200,prot:20,carb:8,fat:10,unit:'1 serving (120g)'},
+  {id:'f9',name:'Mackerel Curry (Ayala Curry)',cat:'Fish & Seafood',cal:218,prot:23,carb:4,fat:12,unit:'1 serving (150g)'},
+  {id:'f10',name:'Prawn Fry (Chemmeen Fry)',cat:'Fish & Seafood',cal:232,prot:26,carb:7,fat:11,unit:'1 serving (120g)'},
+  {id:'f11',name:'Meen Mulakittathu (spicy red curry)',cat:'Fish & Seafood',cal:195,prot:21,carb:6,fat:10,unit:'1 serving (150g)'},
+  {id:'f12',name:'Fish Molee (coconut fish curry)',cat:'Fish & Seafood',cal:220,prot:22,carb:5,fat:13,unit:'1 serving (150g)'},
+  {id:'f13',name:'Lobster Curry',cat:'Fish & Seafood',cal:195,prot:28,carb:5,fat:7,unit:'1 serving (150g)'},
+  {id:'f14',name:'Mussel Fry (Kallummekka Fry)',cat:'Fish & Seafood',cal:210,prot:20,carb:8,fat:11,unit:'1 serving (120g)'},
+  {id:'f15',name:'Clam Roast (Kakka Roast)',cat:'Fish & Seafood',cal:190,prot:18,carb:7,fat:10,unit:'1 serving (120g)'},
+  {id:'f16',name:'Netholi / Anchovies Fry',cat:'Fish & Seafood',cal:180,prot:22,carb:4,fat:9,unit:'1 serving (100g)'},
+  {id:'f17',name:'Rohu / Kari Meen Curry',cat:'Fish & Seafood',cal:175,prot:20,carb:4,fat:8,unit:'1 serving (150g)'},
+  {id:'f18',name:'Seer Fish Fry (Neymeen)',cat:'Fish & Seafood',cal:240,prot:28,carb:4,fat:13,unit:'1 piece (120g)'},
+  {id:'f19',name:'Fish Fry (mixed Kerala style)',cat:'Fish & Seafood',cal:230,prot:24,carb:6,fat:12,unit:'2 pieces'},
+  {id:'f20',name:'Prawn Masala (dry)',cat:'Fish & Seafood',cal:220,prot:25,carb:8,fat:10,unit:'1 serving (130g)'},
+  {id:'c1',name:'Kerala Nadan Chicken Curry',cat:'Chicken',cal:285,prot:28,carb:6,fat:16,unit:'1 serving (180g)'},
+  {id:'c2',name:'Chicken Roast (Nadan)',cat:'Chicken',cal:325,prot:30,carb:8,fat:18,unit:'1 serving (180g)'},
+  {id:'c3',name:'Chicken Fry (Nadan Kozhi Fry)',cat:'Chicken',cal:305,prot:29,carb:7,fat:17,unit:'2 pieces (160g)'},
+  {id:'c4',name:'Chicken Stew',cat:'Chicken',cal:240,prot:26,carb:8,fat:12,unit:'1 serving (180g)'},
+  {id:'c5',name:'Chicken Perattu (dry masala)',cat:'Chicken',cal:310,prot:30,carb:6,fat:18,unit:'1 serving (150g)'},
+  {id:'c6',name:'Chicken Varattiyathu (roasted dry)',cat:'Chicken',cal:330,prot:32,carb:5,fat:20,unit:'1 serving (150g)'},
+  {id:'c7',name:'Chicken Tikka (grilled)',cat:'Chicken',cal:240,prot:34,carb:5,fat:10,unit:'4 pieces (150g)'},
+  {id:'c8',name:'Chicken 65',cat:'Chicken',cal:320,prot:28,carb:14,fat:17,unit:'1 serving (150g)'},
+  {id:'c9',name:'KFC-style Fried Chicken',cat:'Chicken',cal:370,prot:26,carb:16,fat:22,unit:'1 piece (150g)'},
+  {id:'c10',name:'Chicken Kabab',cat:'Chicken',cal:280,prot:30,carb:8,fat:14,unit:'2 pieces (140g)'},
+  {id:'c11',name:'Chicken Liver Fry',cat:'Chicken',cal:195,prot:26,carb:4,fat:9,unit:'1 serving (120g)'},
+  {id:'c12',name:'Chicken Momos / Dumplings',cat:'Chicken',cal:260,prot:18,carb:28,fat:9,unit:'6 pieces'},
+  {id:'be1',name:'Nadan Beef Curry',cat:'Beef',cal:295,prot:30,carb:5,fat:17,unit:'1 serving (180g)'},
+  {id:'be2',name:'Beef Dry Fry / Ularthiyathu',cat:'Beef',cal:345,prot:32,carb:6,fat:20,unit:'1 serving (150g)'},
+  {id:'be3',name:'Beef Roast',cat:'Beef',cal:330,prot:31,carb:5,fat:20,unit:'1 serving (150g)'},
+  {id:'be4',name:'Beef Stew',cat:'Beef',cal:270,prot:28,carb:7,fat:14,unit:'1 serving (180g)'},
+  {id:'be5',name:'Beef Fry (with coconut)',cat:'Beef',cal:360,prot:31,carb:7,fat:22,unit:'1 serving (150g)'},
+  {id:'be6',name:'Beef Kebab',cat:'Beef',cal:290,prot:30,carb:6,fat:16,unit:'2 pieces (140g)'},
+  {id:'be7',name:'Beef Biryani',cat:'Beef',cal:590,prot:32,carb:65,fat:20,unit:'1 plate (380g)'},
+  {id:'be8',name:'Beef Mince Fry (Kheema)',cat:'Beef',cal:310,prot:28,carb:8,fat:18,unit:'1 serving (150g)'},
+  {id:'m1',name:'Mutton Curry (Aadu Curry)',cat:'Mutton & Pork',cal:315,prot:28,carb:6,fat:19,unit:'1 serving (180g)'},
+  {id:'m2',name:'Mutton Roast',cat:'Mutton & Pork',cal:350,prot:30,carb:5,fat:22,unit:'1 serving (150g)'},
+  {id:'m3',name:'Mutton Liver Fry',cat:'Mutton & Pork',cal:220,prot:28,carb:4,fat:11,unit:'1 serving (130g)'},
+  {id:'m4',name:'Pork Roast (Panni Roast)',cat:'Mutton & Pork',cal:365,prot:30,carb:4,fat:25,unit:'1 serving (150g)'},
+  {id:'m5',name:'Pork Fry',cat:'Mutton & Pork',cal:380,prot:29,carb:5,fat:26,unit:'1 serving (150g)'},
+  {id:'m6',name:'Kerala Pork Curry',cat:'Mutton & Pork',cal:340,prot:28,carb:6,fat:22,unit:'1 serving (180g)'},
+  {id:'e1',name:'Boiled Egg (1)',cat:'Eggs',cal:77,prot:6.3,carb:0.6,fat:5.3,unit:'1 egg (50g)'},
+  {id:'e2',name:'Fried Egg (1)',cat:'Eggs',cal:110,prot:7,carb:0.5,fat:8.5,unit:'1 egg (55g)'},
+  {id:'e3',name:'Omelette (plain, 2 eggs)',cat:'Eggs',cal:155,prot:10,carb:1.5,fat:11,unit:'2 eggs'},
+  {id:'e4',name:'Masala Omelette (2 eggs)',cat:'Eggs',cal:180,prot:11,carb:5,fat:12,unit:'2 eggs + masala'},
+  {id:'e5',name:'Egg Roast (nadan, 2 eggs)',cat:'Eggs',cal:225,prot:14,carb:8,fat:15,unit:'2 eggs + masala'},
+  {id:'e6',name:'Egg Curry',cat:'Eggs',cal:210,prot:13,carb:7,fat:14,unit:'2 eggs + curry'},
+  {id:'e7',name:'Egg Bhurji / Scrambled Eggs',cat:'Eggs',cal:200,prot:12,carb:4,fat:14,unit:'2 eggs'},
+  {id:'e8',name:'Egg Poach',cat:'Eggs',cal:80,prot:7,carb:0.5,fat:5.5,unit:'1 egg'},
+  {id:'e9',name:'Half Boiled Egg (soft)',cat:'Eggs',cal:75,prot:6,carb:0.5,fat:5,unit:'1 egg'},
+  {id:'v1',name:'Avial',cat:'Vegetable Curries',cal:142,prot:3,carb:15,fat:7,unit:'1 serving (150g)'},
+  {id:'v2',name:'Sambar',cat:'Vegetable Curries',cal:112,prot:5,carb:16,fat:3,unit:'1 bowl (200g)'},
+  {id:'v3',name:'Cabbage Thoran',cat:'Vegetable Curries',cal:80,prot:2,carb:8,fat:4,unit:'2 tbsp (60g)'},
+  {id:'v4',name:'Bitter Gourd Theeyal / Pavakka',cat:'Vegetable Curries',cal:120,prot:2,carb:14,fat:6,unit:'1 serving (150g)'},
+  {id:'v5',name:'Olan (ash gourd coconut)',cat:'Vegetable Curries',cal:102,prot:2.5,carb:12,fat:4,unit:'1 serving (150g)'},
+  {id:'v6',name:'Erissery (pumpkin + coconut)',cat:'Vegetable Curries',cal:132,prot:3.5,carb:18,fat:5,unit:'1 serving (150g)'},
+  {id:'v7',name:'Kootu Curry (yam + coconut)',cat:'Vegetable Curries',cal:152,prot:5,carb:20,fat:5,unit:'1 serving (150g)'},
+  {id:'v8',name:'Kerala Dal / Parippu Curry',cat:'Vegetable Curries',cal:162,prot:8,carb:24,fat:4,unit:'1 bowl (200g)'},
+  {id:'v9',name:'Cucumber Pachadi / Raita',cat:'Vegetable Curries',cal:72,prot:2,carb:7,fat:3.5,unit:'2 tbsp (80g)'},
+  {id:'v10',name:'Mixed Vegetable Curry',cat:'Vegetable Curries',cal:110,prot:3,carb:14,fat:5,unit:'1 serving (150g)'},
+  {id:'v11',name:'Drumstick Curry (Muringakka)',cat:'Vegetable Curries',cal:90,prot:2.5,carb:10,fat:4,unit:'1 serving (150g)'},
+  {id:'v12',name:'Potato Curry (Urulakizhangu)',cat:'Vegetable Curries',cal:145,prot:2.5,carb:28,fat:3,unit:'1 serving (150g)'},
+  {id:'v13',name:'Cherupayar / Green Gram Curry',cat:'Vegetable Curries',cal:160,prot:9,carb:26,fat:3,unit:'1 bowl (200g)'},
+  {id:'v14',name:'Kadala Curry (black chickpea)',cat:'Vegetable Curries',cal:175,prot:9,carb:28,fat:4,unit:'1 bowl (200g)'},
+  {id:'v15',name:'Raw Banana Curry (Kaya Curry)',cat:'Vegetable Curries',cal:130,prot:2,carb:26,fat:3,unit:'1 serving (150g)'},
+  {id:'v16',name:'Yam Fry / Chena Fry',cat:'Vegetable Curries',cal:160,prot:2,carb:30,fat:4,unit:'1 serving (100g)'},
+  {id:'v17',name:'Spinach / Cheera Thoran',cat:'Vegetable Curries',cal:65,prot:2.5,carb:6,fat:3,unit:'2 tbsp (60g)'},
+  {id:'v18',name:'Ash Gourd / Kumbalanga Curry',cat:'Vegetable Curries',cal:85,prot:1.5,carb:12,fat:3,unit:'1 serving (150g)'},
+  {id:'mal1',name:'Malabar Shawarma (chicken)',cat:'Malabar Street Food',cal:480,prot:26,carb:44,fat:20,unit:'1 full wrap (250g)'},
+  {id:'mal2',name:'Malabar Shawarma (beef)',cat:'Malabar Street Food',cal:510,prot:28,carb:44,fat:22,unit:'1 full wrap (250g)'},
+  {id:'mal3',name:'Chicken Roll (Kerala bakery)',cat:'Malabar Street Food',cal:390,prot:20,carb:38,fat:17,unit:'1 roll (180g)'},
+  {id:'mal4',name:'Beef Roll',cat:'Malabar Street Food',cal:420,prot:22,carb:40,fat:19,unit:'1 roll (185g)'},
+  {id:'mal5',name:'Mani (small steamed rice balls)',cat:'Malabar Street Food',cal:180,prot:3,carb:38,fat:1,unit:'6 pieces (120g)'},
+  {id:'mal6',name:'Mani + Chicken Curry',cat:'Malabar Street Food',cal:460,prot:28,carb:42,fat:18,unit:'1 set'},
+  {id:'mal7',name:'Alfam / Dum Chicken (half)',cat:'Malabar Street Food',cal:620,prot:50,carb:12,fat:40,unit:'half portion'},
+  {id:'mal8',name:'Alfam / Dum Chicken (quarter)',cat:'Malabar Street Food',cal:320,prot:26,carb:6,fat:21,unit:'quarter portion'},
+  {id:'mal9',name:'Pampari (Kerala spicy rice cake)',cat:'Malabar Street Food',cal:190,prot:3,carb:38,fat:3,unit:'1 piece (100g)'},
+  {id:'mal10',name:'Kallummekka Fry (mussels)',cat:'Malabar Street Food',cal:210,prot:20,carb:8,fat:11,unit:'1 serving (120g)'},
+  {id:'mal11',name:'Kozhi Ada (stuffed chicken dumpling)',cat:'Malabar Street Food',cal:205,prot:9,carb:28,fat:7,unit:'1 piece (80g)'},
+  {id:'mal12',name:'Malabar Fish Fry Platter',cat:'Malabar Street Food',cal:380,prot:36,carb:10,fat:20,unit:'2 pcs + salad'},
+  {id:'mal13',name:'Chatti Pathiri (layered pastry)',cat:'Malabar Street Food',cal:340,prot:10,carb:42,fat:14,unit:'1 piece (130g)'},
+  {id:'mal14',name:'Irachi Pathiri (meat stuffed)',cat:'Malabar Street Food',cal:320,prot:14,carb:36,fat:14,unit:'1 piece (130g)'},
+  {id:'mal15',name:'Thalassery Mutton Fry',cat:'Malabar Street Food',cal:360,prot:32,carb:5,fat:23,unit:'1 serving (160g)'},
+  {id:'mal16',name:'Beef Mappas',cat:'Malabar Street Food',cal:290,prot:28,carb:8,fat:16,unit:'1 serving (180g)'},
+  {id:'mal17',name:'Chicken Mappas',cat:'Malabar Street Food',cal:270,prot:26,carb:8,fat:14,unit:'1 serving (180g)'},
+  {id:'mal18',name:'Malabar Prawn Curry (coconut milk)',cat:'Malabar Street Food',cal:235,prot:24,carb:8,fat:12,unit:'1 serving (150g)'},
+  {id:'bk1',name:'Egg Puff',cat:'Bakery Snacks',cal:295,prot:8,carb:30,fat:16,unit:'1 piece (100g)'},
+  {id:'bk2',name:'Chicken Puff',cat:'Bakery Snacks',cal:325,prot:10,carb:32,fat:17,unit:'1 piece (110g)'},
+  {id:'bk3',name:'Beef Puff',cat:'Bakery Snacks',cal:340,prot:12,carb:32,fat:18,unit:'1 piece (115g)'},
+  {id:'bk4',name:'Vegetable Puff',cat:'Bakery Snacks',cal:270,prot:5,carb:32,fat:13,unit:'1 piece (100g)'},
+  {id:'bk5',name:'Samosa (veg)',cat:'Bakery Snacks',cal:220,prot:4,carb:28,fat:11,unit:'1 piece (80g)'},
+  {id:'bk6',name:'Samosa (chicken)',cat:'Bakery Snacks',cal:250,prot:8,carb:28,fat:12,unit:'1 piece (85g)'},
+  {id:'bk7',name:'Cutlet (veg)',cat:'Bakery Snacks',cal:180,prot:4,carb:24,fat:8,unit:'1 piece (70g)'},
+  {id:'bk8',name:'Cutlet (chicken)',cat:'Bakery Snacks',cal:210,prot:12,carb:20,fat:10,unit:'1 piece (80g)'},
+  {id:'bk9',name:'Cutlet (beef)',cat:'Bakery Snacks',cal:230,prot:13,carb:20,fat:12,unit:'1 piece (80g)'},
+  {id:'bk10',name:'Banana Bread Cake (Kerala bakery)',cat:'Bakery Snacks',cal:270,prot:4,carb:42,fat:10,unit:'1 slice (90g)'},
+  {id:'bk11',name:'Kerala Bakery Bread Cake (sweet)',cat:'Bakery Snacks',cal:310,prot:5,carb:50,fat:11,unit:'1 slice (100g)'},
+  {id:'bk12',name:'Vegetable Roll',cat:'Bakery Snacks',cal:320,prot:7,carb:40,fat:14,unit:'1 roll (150g)'},
+  {id:'bk13',name:'Spring Roll (Kerala)',cat:'Bakery Snacks',cal:280,prot:8,carb:34,fat:12,unit:'2 pieces'},
+  {id:'bk14',name:'Bread Omelette (sandwich)',cat:'Bakery Snacks',cal:350,prot:14,carb:30,fat:18,unit:'1 piece'},
+  {id:'bk15',name:'Toast (buttered, 2 slices)',cat:'Bakery Snacks',cal:200,prot:5,carb:26,fat:9,unit:'2 slices'},
+  {id:'os1',name:'Banana Chips (100g pkt)',cat:'Kerala Oily Snacks',cal:550,prot:2,carb:66,fat:30,unit:'1 packet (100g)'},
+  {id:'os2',name:'Banana Chips (small handful)',cat:'Kerala Oily Snacks',cal:165,prot:0.6,carb:20,fat:9,unit:'30g'},
+  {id:'os3',name:'Chakka Varatti Chips (jackfruit)',cat:'Kerala Oily Snacks',cal:420,prot:2,carb:70,fat:14,unit:'100g'},
+  {id:'os4',name:'Tapioca / Kappa Chips',cat:'Kerala Oily Snacks',cal:500,prot:1.5,carb:70,fat:22,unit:'100g'},
+  {id:'os5',name:'Murukku (rice flour)',cat:'Kerala Oily Snacks',cal:480,prot:8,carb:62,fat:22,unit:'100g'},
+  {id:'os6',name:'Kai Murukku (hand-shaped)',cat:'Kerala Oily Snacks',cal:455,prot:7,carb:60,fat:20,unit:'100g'},
+  {id:'os7',name:'Kuzhalappam',cat:'Kerala Oily Snacks',cal:425,prot:6,carb:58,fat:18,unit:'100g'},
+  {id:'os8',name:'Achappam (rose cookies)',cat:'Kerala Oily Snacks',cal:390,prot:5,carb:55,fat:17,unit:'100g'},
+  {id:'os9',name:'Thattai / Rice Crackers',cat:'Kerala Oily Snacks',cal:440,prot:7,carb:65,fat:17,unit:'100g'},
+  {id:'os10',name:'Ribbon Pakoda',cat:'Kerala Oily Snacks',cal:465,prot:9,carb:60,fat:20,unit:'100g'},
+  {id:'os11',name:'Avalose Podi / Puttu Podi Snack',cat:'Kerala Oily Snacks',cal:390,prot:7,carb:72,fat:8,unit:'100g'},
+  {id:'os12',name:'Pampari (spicy rice cake fried)',cat:'Kerala Oily Snacks',cal:320,prot:5,carb:55,fat:9,unit:'1 big piece (150g)'},
+  {id:'os13',name:'Chakka Upperi (jackfruit fry)',cat:'Kerala Oily Snacks',cal:380,prot:2,carb:65,fat:12,unit:'100g'},
+  {id:'os14',name:'Cheeda / Rice Snack',cat:'Kerala Oily Snacks',cal:445,prot:8,carb:63,fat:17,unit:'100g'},
+  {id:'os15',name:'Biscuit (Glucose type, 3 pcs)',cat:'Kerala Oily Snacks',cal:130,prot:2,carb:22,fat:4,unit:'3 biscuits (30g)'},
+  {id:'os16',name:'Mixture (Kerala style)',cat:'Kerala Oily Snacks',cal:460,prot:9,carb:58,fat:20,unit:'100g'},
+  {id:'sw1',name:'Unniyappam',cat:'Sweet Snacks',cal:112,prot:2,carb:20,fat:3,unit:'1 piece (50g)'},
+  {id:'sw2',name:'Neyyappam (ghee appam)',cat:'Sweet Snacks',cal:125,prot:2,carb:22,fat:4.5,unit:'1 piece (55g)'},
+  {id:'sw3',name:'Pazhampori / Banana Fritter',cat:'Sweet Snacks',cal:132,prot:1.5,carb:22,fat:5,unit:'1 piece (60g)'},
+  {id:'sw4',name:'Sukhiyan (moong dal sweet)',cat:'Sweet Snacks',cal:102,prot:3,carb:16,fat:3,unit:'1 piece (50g)'},
+  {id:'sw5',name:'Churmuri / Puffed Rice (plain)',cat:'Sweet Snacks',cal:100,prot:2,carb:22,fat:0.5,unit:'1 cup (30g)'},
+  {id:'sw6',name:'Ela Ada (rice cake with coconut)',cat:'Sweet Snacks',cal:140,prot:2,carb:26,fat:3,unit:'1 piece (70g)'},
+  {id:'sw7',name:'Kozhukatta (steamed rice dumpling)',cat:'Sweet Snacks',cal:100,prot:1.5,carb:22,fat:1,unit:'2 pieces (80g)'},
+  {id:'sw8',name:'Avalose Undas (rice laddoo)',cat:'Sweet Snacks',cal:180,prot:3,carb:35,fat:4,unit:'2 pieces (60g)'},
+  {id:'sw9',name:'Kozhal (fried rice hollow snack)',cat:'Sweet Snacks',cal:380,prot:5,carb:56,fat:15,unit:'100g'},
+  {id:'de1',name:'Rice Payasam / Pal Payasam',cat:'Sweets & Desserts',cal:225,prot:4,carb:40,fat:7,unit:'1 bowl (150ml)'},
+  {id:'de2',name:'Ada Pradhaman',cat:'Sweets & Desserts',cal:285,prot:3,carb:50,fat:9,unit:'1 bowl (150ml)'},
+  {id:'de3',name:'Wheat Payasam',cat:'Sweets & Desserts',cal:240,prot:5,carb:42,fat:7,unit:'1 bowl (150ml)'},
+  {id:'de4',name:'Chakka Pradhaman (jackfruit)',cat:'Sweets & Desserts',cal:260,prot:3,carb:46,fat:8,unit:'1 bowl (150ml)'},
+  {id:'de5',name:'Pazham Pradhaman (banana)',cat:'Sweets & Desserts',cal:250,prot:3,carb:44,fat:8,unit:'1 bowl (150ml)'},
+  {id:'de6',name:'Calicut Halwa (wheat halwa)',cat:'Sweets & Desserts',cal:355,prot:2,carb:66,fat:10,unit:'1 piece (80g)'},
+  {id:'de7',name:'Banana Halwa',cat:'Sweets & Desserts',cal:300,prot:1.5,carb:60,fat:7,unit:'1 piece (70g)'},
+  {id:'de8',name:'Coconut Ladoo',cat:'Sweets & Desserts',cal:175,prot:2,carb:22,fat:9,unit:'1 piece (40g)'},
+  {id:'de9',name:'Rava Kesari',cat:'Sweets & Desserts',cal:220,prot:3,carb:36,fat:8,unit:'1 piece (80g)'},
+  {id:'de10',name:'Kinnathappam (steamed sweet)',cat:'Sweets & Desserts',cal:180,prot:3,carb:34,fat:4,unit:'1 piece (80g)'},
+  {id:'t1',name:'Kerala Chai (full milk + 2 tsp sugar)',cat:'Tea & Hot Drinks',cal:110,prot:3,carb:16,fat:3.5,unit:'1 cup (200ml)'},
+  {id:'t2',name:'Kerala Chai (half milk + 1 tsp sugar)',cat:'Tea & Hot Drinks',cal:65,prot:2,carb:10,fat:2,unit:'1 cup (200ml)'},
+  {id:'t3',name:'Black Tea (no sugar)',cat:'Tea & Hot Drinks',cal:2,prot:0,carb:0.4,fat:0,unit:'1 cup (200ml)'},
+  {id:'t4',name:'Black Tea + 1 tsp sugar',cat:'Tea & Hot Drinks',cal:20,prot:0,carb:5,fat:0,unit:'1 cup (200ml)'},
+  {id:'t5',name:'Ginger Tea (Inji Chai)',cat:'Tea & Hot Drinks',cal:70,prot:2,carb:11,fat:2,unit:'1 cup (200ml)'},
+  {id:'t6',name:'Cardamom Chai (Elachi Tea)',cat:'Tea & Hot Drinks',cal:80,prot:2.5,carb:12,fat:2.5,unit:'1 cup (200ml)'},
+  {id:'t7',name:'Sulaimani Tea (black spice tea)',cat:'Tea & Hot Drinks',cal:10,prot:0,carb:2.5,fat:0,unit:'1 cup (200ml)'},
+  {id:'t8',name:'Masala Chai',cat:'Tea & Hot Drinks',cal:90,prot:2.5,carb:13,fat:3,unit:'1 cup (200ml)'},
+  {id:'t9',name:'Black Coffee (no sugar)',cat:'Tea & Hot Drinks',cal:5,prot:0.3,carb:0,fat:0,unit:'1 cup (200ml)'},
+  {id:'t10',name:'Coffee (milk + sugar)',cat:'Tea & Hot Drinks',cal:80,prot:2,carb:12,fat:2.5,unit:'1 cup (200ml)'},
+  {id:'t11',name:'Boost / Horlicks Milk',cat:'Tea & Hot Drinks',cal:185,prot:7,carb:30,fat:5,unit:'1 glass (250ml)'},
+  {id:'t12',name:'Turmeric Milk (Manjal Paal)',cat:'Tea & Hot Drinks',cal:120,prot:5,carb:14,fat:4.5,unit:'1 glass (250ml)'},
+  {id:'t13',name:'Warm Water (lemon + jeera)',cat:'Tea & Hot Drinks',cal:10,prot:0,carb:2,fat:0,unit:'1 glass (300ml)'},
+  {id:'dr1',name:'Sharjah Shake (Kannur special)',cat:'Drinks & Juices',cal:345,prot:7,carb:52,fat:12,unit:'1 glass (350ml)'},
+  {id:'dr2',name:'Banana Milkshake',cat:'Drinks & Juices',cal:225,prot:5,carb:40,fat:5,unit:'1 glass (300ml)'},
+  {id:'dr3',name:'Mango Milkshake',cat:'Drinks & Juices',cal:250,prot:5,carb:44,fat:6,unit:'1 glass (300ml)'},
+  {id:'dr4',name:'Fresh Coconut Water (1 coconut)',cat:'Drinks & Juices',cal:46,prot:1.7,carb:9,fat:0.5,unit:'1 coconut (240ml)'},
+  {id:'dr5',name:'Tender Coconut Milk',cat:'Drinks & Juices',cal:82,prot:1,carb:8,fat:5,unit:'1 glass (200ml)'},
+  {id:'dr6',name:'Buttermilk / Moru (plain)',cat:'Drinks & Juices',cal:42,prot:3,carb:4,fat:1,unit:'1 glass (200ml)'},
+  {id:'dr7',name:'Moru Curry (cooked buttermilk)',cat:'Drinks & Juices',cal:55,prot:2.5,carb:5,fat:2.5,unit:'1 bowl (150ml)'},
+  {id:'dr8',name:'Nannari Sharbat',cat:'Drinks & Juices',cal:102,prot:0,carb:26,fat:0,unit:'1 glass (250ml)'},
+  {id:'dr9',name:'Fresh Mango Juice',cat:'Drinks & Juices',cal:122,prot:1,carb:30,fat:0,unit:'1 glass (250ml)'},
+  {id:'dr10',name:'Pineapple Juice (fresh)',cat:'Drinks & Juices',cal:110,prot:0.5,carb:28,fat:0,unit:'1 glass (250ml)'},
+  {id:'dr11',name:'Lime Soda (no sugar)',cat:'Drinks & Juices',cal:15,prot:0,carb:3,fat:0,unit:'1 glass (300ml)'},
+  {id:'dr12',name:'Lime Soda (with sugar)',cat:'Drinks & Juices',cal:80,prot:0,carb:20,fat:0,unit:'1 glass (300ml)'},
+  {id:'dr13',name:'Sugarcane Juice',cat:'Drinks & Juices',cal:182,prot:0,carb:46,fat:0,unit:'1 glass (250ml)'},
+  {id:'dr14',name:'Watermelon Juice (fresh)',cat:'Drinks & Juices',cal:72,prot:1,carb:18,fat:0,unit:'1 glass (250ml)'},
+  {id:'dr15',name:'Milk (full fat, plain)',cat:'Drinks & Juices',cal:150,prot:8,carb:12,fat:8,unit:'1 glass (250ml)'},
+  {id:'dr16',name:'Milk (toned/low fat)',cat:'Drinks & Juices',cal:110,prot:8,carb:12,fat:3.5,unit:'1 glass (250ml)'},
+  {id:'dr17',name:'Lassi (sweet)',cat:'Drinks & Juices',cal:180,prot:6,carb:28,fat:5,unit:'1 glass (250ml)'},
+  {id:'dr18',name:'Pepsi / Coke (can)',cat:'Drinks & Juices',cal:139,prot:0,carb:35,fat:0,unit:'1 can (330ml)'},
+  {id:'dr19',name:'Frooti / Maaza Mango drink',cat:'Drinks & Juices',cal:130,prot:0,carb:33,fat:0,unit:'1 pack (200ml)'},
+  {id:'fr1',name:'Nendran Banana (ripe big)',cat:'Fruits',cal:132,prot:1.5,carb:31,fat:0.3,unit:'1 medium (120g)'},
+  {id:'fr2',name:'Small Banana (Robusta/Poovan)',cat:'Fruits',cal:72,prot:0.8,carb:17,fat:0.2,unit:'1 small (60g)'},
+  {id:'fr3',name:'Alphonso / Mango (1 medium)',cat:'Fruits',cal:102,prot:1,carb:25,fat:0.5,unit:'1 medium (150g)'},
+  {id:'fr4',name:'Jackfruit / Chakka (fresh)',cat:'Fruits',cal:97,prot:1.5,carb:23,fat:0.6,unit:'1 cup (150g)'},
+  {id:'fr5',name:'Papaya',cat:'Fruits',cal:57,prot:0.6,carb:14,fat:0.2,unit:'1 cup (150g)'},
+  {id:'fr6',name:'Pineapple (fresh)',cat:'Fruits',cal:83,prot:0.9,carb:22,fat:0.2,unit:'1 cup (165g)'},
+  {id:'fr7',name:'Guava / Peraka',cat:'Fruits',cal:68,prot:2.6,carb:14,fat:1,unit:'1 medium (90g)'},
+  {id:'fr8',name:'Gooseberry / Nelli',cat:'Fruits',cal:44,prot:0.8,carb:10,fat:0.6,unit:'100g'},
+  {id:'fr9',name:'Watermelon',cat:'Fruits',cal:50,prot:1,carb:12,fat:0,unit:'1 cup (160g)'},
+  {id:'fr10',name:'Grapes (green/black)',cat:'Fruits',cal:69,prot:0.6,carb:18,fat:0.2,unit:'1 cup (100g)'},
+  {id:'fr11',name:'Apple',cat:'Fruits',cal:95,prot:0.5,carb:25,fat:0.3,unit:'1 medium (182g)'},
+  {id:'fr12',name:'Orange',cat:'Fruits',cal:62,prot:1.2,carb:15,fat:0.2,unit:'1 medium (130g)'},
+  {id:'da1',name:'Curd / Yoghurt (plain)',cat:'Dairy',cal:82,prot:5,carb:8,fat:2.5,unit:'1 cup (150g)'},
+  {id:'da2',name:'Paneer (raw)',cat:'Dairy',cal:296,prot:18,carb:4,fat:23,unit:'100g'},
+  {id:'da3',name:'Paneer Curry',cat:'Dairy',cal:280,prot:15,carb:10,fat:20,unit:'1 serving (150g)'},
+  {id:'da4',name:'Ghee',cat:'Dairy',cal:112,prot:0,carb:0,fat:12.7,unit:'1 tbsp (14g)'},
+  {id:'da5',name:'Butter',cat:'Dairy',cal:102,prot:0.1,carb:0,fat:11.5,unit:'1 tbsp (14g)'},
+  {id:'da6',name:'Cheese slice (processed)',cat:'Dairy',cal:80,prot:4.5,carb:1,fat:6.5,unit:'1 slice (20g)'},
+  {id:'co1',name:'Coconut Oil (1 tbsp)',cat:'Oils & Condiments',cal:121,prot:0,carb:0,fat:13.6,unit:'1 tbsp (14g)'},
+  {id:'co2',name:'Coconut Chutney',cat:'Oils & Condiments',cal:72,prot:1.5,carb:4,fat:5.5,unit:'2 tbsp (40g)'},
+  {id:'co3',name:'Mango Pickle (Achar)',cat:'Oils & Condiments',cal:52,prot:0.5,carb:6,fat:2.5,unit:'1 tbsp (20g)'},
+  {id:'co4',name:'Tomato Chutney',cat:'Oils & Condiments',cal:40,prot:1,carb:6,fat:1.5,unit:'2 tbsp (40g)'},
+  {id:'co5',name:'Coconut Milk (thick, 100ml)',cat:'Oils & Condiments',cal:230,prot:2,carb:3.5,fat:24,unit:'100ml'},
+  {id:'co6',name:'Coconut Milk (thin, 100ml)',cat:'Oils & Condiments',cal:70,prot:0.8,carb:2,fat:7,unit:'100ml'},
+  {id:'co7',name:'Grated Coconut (1 tbsp)',cat:'Oils & Condiments',cal:30,prot:0.3,carb:1.3,fat:2.8,unit:'1 tbsp (15g)'},
+  {id:'co8',name:'Sunflower Oil (1 tbsp)',cat:'Oils & Condiments',cal:120,prot:0,carb:0,fat:13.6,unit:'1 tbsp (14g)'},
+  {id:'sup1',name:'Whey Protein Shake (1 scoop)',cat:'Supplements',cal:120,prot:24,carb:4,fat:2,unit:'1 scoop in water (35g)'},
+  {id:'sup2',name:'Whey Protein Shake (with milk)',cat:'Supplements',cal:270,prot:29,carb:16,fat:7,unit:'1 scoop + 250ml milk'},
+  {id:'sup3',name:'Peanuts / Groundnuts (roasted)',cat:'Supplements',cal:285,prot:13,carb:9,fat:24,unit:'50g handful'},
+  {id:'sup4',name:'Almonds (soaked)',cat:'Supplements',cal:170,prot:6,carb:6,fat:15,unit:'20 almonds (30g)'},
+  {id:'sup5',name:'Boiled Chickpea / Kadala',cat:'Supplements',cal:164,prot:9,carb:27,fat:2.5,unit:'1 cup (150g)'},
+  {id:'sup6',name:'Boiled Moong Dal',cat:'Supplements',cal:105,prot:7,carb:19,fat:0.4,unit:'1 cup (100g)'},
+  {id:'sup7',name:'Chicken Breast (boiled, 100g)',cat:'Supplements',cal:165,prot:31,carb:0,fat:3.6,unit:'100g'},
+
+  // PIZZA
+  {id:'pz1',name:'Margherita Pizza (slice)',cat:'Pizza',cal:285,prot:11,carb:36,fat:10,unit:'1 slice (120g)'},
+  {id:'pz2',name:'Chicken Tikka Pizza (slice)',cat:'Pizza',cal:320,prot:16,carb:35,fat:13,unit:'1 slice (130g)'},
+  {id:'pz3',name:'Pepperoni Pizza (slice)',cat:'Pizza',cal:340,prot:14,carb:34,fat:16,unit:'1 slice (130g)'},
+  {id:'pz4',name:'BBQ Chicken Pizza (slice)',cat:'Pizza',cal:310,prot:15,carb:36,fat:12,unit:'1 slice (130g)'},
+  {id:'pz5',name:'Veggie Supreme Pizza (slice)',cat:'Pizza',cal:265,prot:10,carb:34,fat:10,unit:'1 slice (120g)'},
+  {id:'pz6',name:'Paneer Pizza (slice)',cat:'Pizza',cal:295,prot:13,carb:34,fat:12,unit:'1 slice (120g)'},
+  {id:'pz7',name:'Full Margherita Pizza (7 inch)',cat:'Pizza',cal:720,prot:28,carb:90,fat:26,unit:'1 small pizza'},
+  {id:'pz8',name:'Full Chicken Pizza (7 inch)',cat:'Pizza',cal:820,prot:40,carb:88,fat:32,unit:'1 small pizza'},
+  {id:'pz9',name:'Garlic Bread (4 pcs)',cat:'Pizza',cal:280,prot:6,carb:40,fat:11,unit:'4 pieces'},
+  {id:'pz10',name:'Cheese Garlic Bread',cat:'Pizza',cal:340,prot:10,carb:42,fat:14,unit:'4 pieces'},
+
+  // BURGERS & SANDWICHES
+  {id:'bu1',name:'Chicken Burger (plain)',cat:'Burgers & Sandwiches',cal:420,prot:22,carb:38,fat:20,unit:'1 burger'},
+  {id:'bu2',name:'Beef Burger',cat:'Burgers & Sandwiches',cal:490,prot:26,carb:38,fat:26,unit:'1 burger'},
+  {id:'bu3',name:'Chicken Zinger / Spicy Burger',cat:'Burgers & Sandwiches',cal:520,prot:26,carb:44,fat:26,unit:'1 burger'},
+  {id:'bu4',name:'Veg Burger (aloo tikki)',cat:'Burgers & Sandwiches',cal:340,prot:8,carb:48,fat:13,unit:'1 burger'},
+  {id:'bu5',name:'Egg Burger',cat:'Burgers & Sandwiches',cal:380,prot:16,carb:36,fat:18,unit:'1 burger'},
+  {id:'bu6',name:'Double Chicken Burger',cat:'Burgers & Sandwiches',cal:680,prot:40,carb:50,fat:34,unit:'1 burger'},
+  {id:'bu7',name:'Club Sandwich (chicken)',cat:'Burgers & Sandwiches',cal:480,prot:28,carb:44,fat:20,unit:'1 sandwich'},
+  {id:'bu8',name:'Grilled Chicken Sandwich',cat:'Burgers & Sandwiches',cal:380,prot:30,carb:36,fat:12,unit:'1 sandwich'},
+  {id:'bu9',name:'Veggie Sandwich',cat:'Burgers & Sandwiches',cal:280,prot:9,carb:40,fat:9,unit:'1 sandwich'},
+  {id:'bu10',name:'Egg Mayo Sandwich',cat:'Burgers & Sandwiches',cal:320,prot:14,carb:32,fat:16,unit:'1 sandwich'},
+  {id:'bu11',name:'Tuna Sandwich',cat:'Burgers & Sandwiches',cal:350,prot:24,carb:34,fat:14,unit:'1 sandwich'},
+  {id:'bu12',name:'Sub / Footlong Chicken',cat:'Burgers & Sandwiches',cal:560,prot:38,carb:60,fat:18,unit:'6-inch sub'},
+
+  // FAST FOOD
+  {id:'ff1',name:'French Fries (regular)',cat:'Fast Food',cal:320,prot:4,carb:44,fat:15,unit:'regular (115g)'},
+  {id:'ff2',name:'French Fries (large)',cat:'Fast Food',cal:490,prot:6,carb:66,fat:23,unit:'large (175g)'},
+  {id:'ff3',name:'Chicken Nuggets (6 pcs)',cat:'Fast Food',cal:280,prot:15,carb:18,fat:16,unit:'6 pieces'},
+  {id:'ff4',name:'Chicken Nuggets (9 pcs)',cat:'Fast Food',cal:420,prot:22,carb:27,fat:24,unit:'9 pieces'},
+  {id:'ff5',name:'Onion Rings (regular)',cat:'Fast Food',cal:280,prot:4,carb:36,fat:14,unit:'regular portion'},
+  {id:'ff6',name:'Chicken Strips / Tenders (3 pcs)',cat:'Fast Food',cal:320,prot:22,carb:20,fat:16,unit:'3 pieces'},
+  {id:'ff7',name:'Hot Dog',cat:'Fast Food',cal:290,prot:11,carb:24,fat:16,unit:'1 hot dog'},
+  {id:'ff8',name:'Loaded Fries (cheese + chicken)',cat:'Fast Food',cal:560,prot:22,carb:52,fat:28,unit:'1 portion'},
+  {id:'ff9',name:'Peri Peri Chicken (quarter bird)',cat:'Fast Food',cal:380,prot:42,carb:8,fat:20,unit:'quarter chicken'},
+
+  // NOODLES & PASTA
+  {id:'np1',name:'Chicken Noodles (restaurant)',cat:'Noodles & Pasta',cal:420,prot:18,carb:58,fat:13,unit:'1 plate (300g)'},
+  {id:'np2',name:'Veg Noodles / Chow Mein',cat:'Noodles & Pasta',cal:360,prot:8,carb:62,fat:10,unit:'1 plate (280g)'},
+  {id:'np3',name:'Beef Noodles',cat:'Noodles & Pasta',cal:460,prot:22,carb:58,fat:16,unit:'1 plate (300g)'},
+  {id:'np4',name:'Egg Noodles',cat:'Noodles & Pasta',cal:390,prot:14,carb:60,fat:11,unit:'1 plate (280g)'},
+  {id:'np5',name:'Instant Noodles (Maggi/Yippee)',cat:'Noodles & Pasta',cal:360,prot:8,carb:52,fat:14,unit:'1 pack cooked (80g)'},
+  {id:'np6',name:'Pasta Arrabiata (tomato)',cat:'Noodles & Pasta',cal:380,prot:10,carb:62,fat:10,unit:'1 plate (280g)'},
+  {id:'np7',name:'Pasta Alfredo (cream sauce)',cat:'Noodles & Pasta',cal:520,prot:14,carb:58,fat:24,unit:'1 plate (280g)'},
+  {id:'np8',name:'Chicken Pasta (white sauce)',cat:'Noodles & Pasta',cal:560,prot:26,carb:58,fat:24,unit:'1 plate (300g)'},
+  {id:'np9',name:'Hakka Noodles',cat:'Noodles & Pasta',cal:400,prot:12,carb:60,fat:12,unit:'1 plate (280g)'},
+  {id:'np10',name:'Ramen Bowl (restaurant)',cat:'Noodles & Pasta',cal:480,prot:20,carb:64,fat:16,unit:'1 bowl'},
+
+  // CHINESE & INDO-CHINESE
+  {id:'ch1',name:'Chicken Fried Rice',cat:'Chinese & Indo-Chinese',cal:420,prot:16,carb:62,fat:12,unit:'1 plate (300g)'},
+  {id:'ch2',name:'Egg Fried Rice',cat:'Chinese & Indo-Chinese',cal:380,prot:12,carb:60,fat:11,unit:'1 plate (280g)'},
+  {id:'ch3',name:'Veg Fried Rice',cat:'Chinese & Indo-Chinese',cal:340,prot:7,carb:62,fat:8,unit:'1 plate (280g)'},
+  {id:'ch4',name:'Chicken Manchurian (gravy)',cat:'Chinese & Indo-Chinese',cal:350,prot:24,carb:28,fat:14,unit:'1 serving (200g)'},
+  {id:'ch5',name:'Gobi Manchurian',cat:'Chinese & Indo-Chinese',cal:280,prot:6,carb:36,fat:12,unit:'1 serving (180g)'},
+  {id:'ch6',name:'Chilli Chicken (dry)',cat:'Chinese & Indo-Chinese',cal:320,prot:26,carb:18,fat:16,unit:'1 serving (180g)'},
+  {id:'ch7',name:'Chilli Beef (dry)',cat:'Chinese & Indo-Chinese',cal:360,prot:28,carb:18,fat:20,unit:'1 serving (180g)'},
+  {id:'ch8',name:'Sweet & Sour Chicken',cat:'Chinese & Indo-Chinese',cal:400,prot:22,carb:42,fat:16,unit:'1 serving (200g)'},
+  {id:'ch9',name:'Spring Rolls (fried, 4 pcs)',cat:'Chinese & Indo-Chinese',cal:320,prot:10,carb:38,fat:16,unit:'4 pieces'},
+  {id:'ch10',name:'Hot & Sour Soup',cat:'Chinese & Indo-Chinese',cal:120,prot:6,carb:16,fat:3,unit:'1 bowl (300ml)'},
+
+  // CAFE & CONTINENTAL
+  {id:'ca1',name:'Pancakes (2 pcs, plain)',cat:'Cafe & Continental',cal:360,prot:8,carb:56,fat:12,unit:'2 pancakes'},
+  {id:'ca2',name:'Pancakes with Maple Syrup',cat:'Cafe & Continental',cal:480,prot:8,carb:78,fat:14,unit:'2 pancakes + syrup'},
+  {id:'ca3',name:'Waffles (plain)',cat:'Cafe & Continental',cal:420,prot:8,carb:60,fat:16,unit:'1 waffle'},
+  {id:'ca4',name:'French Toast (2 slices)',cat:'Cafe & Continental',cal:320,prot:10,carb:38,fat:14,unit:'2 slices'},
+  {id:'ca5',name:'Grilled Chicken Salad',cat:'Cafe & Continental',cal:280,prot:32,carb:12,fat:12,unit:'1 plate'},
+  {id:'ca6',name:'Caesar Salad (chicken)',cat:'Cafe & Continental',cal:380,prot:28,carb:18,fat:22,unit:'1 plate'},
+  {id:'ca7',name:'Mushroom Soup (cream)',cat:'Cafe & Continental',cal:190,prot:5,carb:16,fat:12,unit:'1 bowl (250ml)'},
+  {id:'ca8',name:'Tomato Soup (cream)',cat:'Cafe & Continental',cal:160,prot:3,carb:18,fat:8,unit:'1 bowl (250ml)'},
+  {id:'ca9',name:'Chicken Wrap (tortilla)',cat:'Cafe & Continental',cal:460,prot:28,carb:50,fat:18,unit:'1 wrap'},
+  {id:'ca10',name:'Croissant (plain)',cat:'Cafe & Continental',cal:280,prot:5,carb:32,fat:14,unit:'1 croissant (80g)'},
+  {id:'ca11',name:'Croissant (chicken filled)',cat:'Cafe & Continental',cal:400,prot:18,carb:34,fat:22,unit:'1 filled croissant'},
+  {id:'ca12',name:'Brownie (chocolate)',cat:'Cafe & Continental',cal:340,prot:4,carb:46,fat:16,unit:'1 piece (70g)'},
+  {id:'ca13',name:'Chocolate Cake (slice)',cat:'Cafe & Continental',cal:380,prot:5,carb:54,fat:18,unit:'1 slice (100g)'},
+  {id:'ca14',name:'Cheesecake (slice)',cat:'Cafe & Continental',cal:400,prot:6,carb:40,fat:24,unit:'1 slice (100g)'},
+  {id:'ca15',name:'Ice Cream (2 scoops)',cat:'Cafe & Continental',cal:260,prot:4,carb:36,fat:12,unit:'2 scoops (100g)'},
+
+  // MOJITOS & MOCKTAILS
+  {id:'mj1',name:'Classic Mojito (mocktail)',cat:'Mojitos & Mocktails',cal:120,prot:0,carb:30,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj2',name:'Virgin Strawberry Mojito',cat:'Mojitos & Mocktails',cal:130,prot:0.5,carb:32,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj3',name:'Virgin Blueberry Mojito',cat:'Mojitos & Mocktails',cal:125,prot:0.5,carb:31,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj4',name:'Watermelon Mojito (mocktail)',cat:'Mojitos & Mocktails',cal:110,prot:0.5,carb:27,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj5',name:'Mango Mojito (mocktail)',cat:'Mojitos & Mocktails',cal:140,prot:0.5,carb:35,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj6',name:'Mint Lemonade',cat:'Mojitos & Mocktails',cal:80,prot:0,carb:20,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj7',name:'Blue Lagoon Mocktail',cat:'Mojitos & Mocktails',cal:150,prot:0,carb:38,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj8',name:'Virgin Pina Colada',cat:'Mojitos & Mocktails',cal:200,prot:1,carb:36,fat:6,unit:'1 glass (300ml)'},
+  {id:'mj9',name:'Fruit Punch (fresh)',cat:'Mojitos & Mocktails',cal:130,prot:0.5,carb:32,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj10',name:'Green Apple Soda',cat:'Mojitos & Mocktails',cal:110,prot:0,carb:28,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj11',name:'Cranberry Cooler',cat:'Mojitos & Mocktails',cal:120,prot:0,carb:30,fat:0,unit:'1 glass (300ml)'},
+  {id:'mj12',name:'Rose Lemonade Mocktail',cat:'Mojitos & Mocktails',cal:100,prot:0,carb:25,fat:0,unit:'1 glass (300ml)'},
+
+  // CAFE COFFEE
+  {id:'cf1',name:'Cappuccino (full milk)',cat:'Cafe Coffee',cal:120,prot:6,carb:10,fat:5,unit:'1 cup (250ml)'},
+  {id:'cf2',name:'Latte (full milk)',cat:'Cafe Coffee',cal:140,prot:7,carb:12,fat:6,unit:'1 cup (280ml)'},
+  {id:'cf3',name:'Americano (black)',cat:'Cafe Coffee',cal:10,prot:0.5,carb:1,fat:0,unit:'1 cup (250ml)'},
+  {id:'cf4',name:'Mocha (with whipped cream)',cat:'Cafe Coffee',cal:280,prot:7,carb:36,fat:12,unit:'1 cup (300ml)'},
+  {id:'cf5',name:'Cold Coffee (blended)',cat:'Cafe Coffee',cal:240,prot:6,carb:34,fat:10,unit:'1 glass (300ml)'},
+  {id:'cf6',name:'Cold Coffee (with ice cream)',cat:'Cafe Coffee',cal:360,prot:8,carb:50,fat:16,unit:'1 glass (350ml)'},
+  {id:'cf7',name:'Frappe (chocolate)',cat:'Cafe Coffee',cal:380,prot:6,carb:56,fat:16,unit:'1 glass (350ml)'},
+  {id:'cf8',name:'Iced Latte',cat:'Cafe Coffee',cal:130,prot:6,carb:14,fat:5,unit:'1 glass (300ml)'},
+  {id:'cf9',name:'Caramel Macchiato',cat:'Cafe Coffee',cal:200,prot:7,carb:28,fat:7,unit:'1 cup (280ml)'},
+  {id:'cf10',name:'Hot Chocolate (full milk)',cat:'Cafe Coffee',cal:220,prot:8,carb:30,fat:8,unit:'1 cup (300ml)'},
+  {id:'cf11',name:'Matcha Latte',cat:'Cafe Coffee',cal:160,prot:6,carb:20,fat:6,unit:'1 cup (280ml)'},
+
+  // JUICE BAR
+  {id:'jb1',name:'Orange Juice (fresh)',cat:'Juice Bar',cal:110,prot:1.7,carb:26,fat:0.5,unit:'1 glass (250ml)'},
+  {id:'jb2',name:'Mixed Fruit Juice',cat:'Juice Bar',cal:130,prot:1,carb:32,fat:0,unit:'1 glass (250ml)'},
+  {id:'jb3',name:'Carrot + Ginger Juice',cat:'Juice Bar',cal:90,prot:2,carb:20,fat:0.5,unit:'1 glass (250ml)'},
+  {id:'jb4',name:'Beetroot Juice (plain)',cat:'Juice Bar',cal:100,prot:2,carb:22,fat:0.2,unit:'1 glass (250ml)'},
+  {id:'jb5',name:'Green Detox Juice (spinach+apple+lemon)',cat:'Juice Bar',cal:80,prot:2,carb:18,fat:0.3,unit:'1 glass (250ml)'},
+  {id:'jb6',name:'Avocado Shake',cat:'Juice Bar',cal:310,prot:4,carb:22,fat:24,unit:'1 glass (300ml)'},
+  {id:'jb7',name:'Strawberry Smoothie',cat:'Juice Bar',cal:180,prot:4,carb:32,fat:4,unit:'1 glass (300ml)'},
+  {id:'jb8',name:'Mango Lassi',cat:'Juice Bar',cal:240,prot:6,carb:42,fat:5,unit:'1 glass (300ml)'},
+  {id:'jb9',name:'Protein Smoothie (banana+peanut butter)',cat:'Juice Bar',cal:380,prot:16,carb:44,fat:14,unit:'1 glass (350ml)'},
+  {id:'jb10',name:'Pomegranate Juice (fresh)',cat:'Juice Bar',cal:134,prot:2,carb:32,fat:0.7,unit:'1 glass (250ml)'},
+  {id:'jb11',name:'Kiwi Lemonade',cat:'Juice Bar',cal:95,prot:1,carb:24,fat:0,unit:'1 glass (250ml)'},
+  {id:'jb12',name:'Chocolate Milkshake',cat:'Juice Bar',cal:380,prot:9,carb:54,fat:14,unit:'1 glass (350ml)'},
+  {id:'jb13',name:'Strawberry Milkshake',cat:'Juice Bar',cal:320,prot:8,carb:48,fat:12,unit:'1 glass (300ml)'},
+  {id:'jb14',name:'Dry Fruit Milkshake (badam)',cat:'Juice Bar',cal:420,prot:10,carb:52,fat:18,unit:'1 glass (350ml)'},
+  {id:'jb15',name:'Tender Coconut Shake',cat:'Juice Bar',cal:200,prot:3,carb:28,fat:9,unit:'1 glass (300ml)'},
+  {id:'jb16',name:'Pineapple Mint Cooler',cat:'Juice Bar',cal:88,prot:0.5,carb:22,fat:0,unit:'1 glass (250ml)'},
+
+  // HOTEL & RESTAURANT
+  {id:'ni1',name:'Butter Chicken',cat:'Hotel & Restaurant',cal:380,prot:28,carb:14,fat:24,unit:'1 serving (200g)'},
+  {id:'ni2',name:'Paneer Butter Masala',cat:'Hotel & Restaurant',cal:420,prot:18,carb:16,fat:32,unit:'1 serving (200g)'},
+  {id:'ni3',name:'Dal Makhani',cat:'Hotel & Restaurant',cal:280,prot:12,carb:34,fat:10,unit:'1 bowl (200g)'},
+  {id:'ni4',name:'Chicken Tikka Masala',cat:'Hotel & Restaurant',cal:360,prot:30,carb:12,fat:22,unit:'1 serving (200g)'},
+  {id:'ni5',name:'Palak Paneer',cat:'Hotel & Restaurant',cal:300,prot:14,carb:14,fat:22,unit:'1 serving (180g)'},
+  {id:'ni6',name:'Chole Bhature',cat:'Hotel & Restaurant',cal:480,prot:14,carb:66,fat:18,unit:'1 plate'},
+  {id:'ni7',name:'Tandoori Chicken (2 pieces)',cat:'Hotel & Restaurant',cal:320,prot:40,carb:6,fat:14,unit:'2 pieces'},
+  {id:'ni8',name:'Seekh Kebab (3 pcs)',cat:'Hotel & Restaurant',cal:280,prot:26,carb:8,fat:16,unit:'3 pieces'},
+  {id:'ni9',name:'Naan + Butter Chicken (set)',cat:'Hotel & Restaurant',cal:640,prot:36,carb:60,fat:26,unit:'1 set'},
+  {id:'ni10',name:'Masala Omelette + Toast (hotel)',cat:'Hotel & Restaurant',cal:380,prot:20,carb:28,fat:22,unit:'2 eggs + 2 toast'},
+  {id:'ni11',name:'Full Kerala Thali (Meals)',cat:'Hotel & Restaurant',cal:780,prot:24,carb:110,fat:22,unit:'1 full plate'},
+  {id:'ni12',name:'Fish Meals (thali with fish)',cat:'Hotel & Restaurant',cal:860,prot:40,carb:108,fat:26,unit:'1 full plate'},
+  {id:'ni13',name:'Porotta + Beef Curry (hotel)',cat:'Hotel & Restaurant',cal:620,prot:34,carb:60,fat:26,unit:'2 porotta + curry'},
+  {id:'ni14',name:'Porotta + Chicken Curry (hotel)',cat:'Hotel & Restaurant',cal:580,prot:30,carb:60,fat:24,unit:'2 porotta + curry'},
+  {id:'ni15',name:'Kappa + Meen Curry (restaurant)',cat:'Hotel & Restaurant',cal:420,prot:28,carb:50,fat:10,unit:'1 plate'},
+  {id:'ni16',name:'Chicken Pepper Fry (restaurant)',cat:'Hotel & Restaurant',cal:340,prot:32,carb:6,fat:20,unit:'1 serving (160g)'},
+  {id:'ni17',name:'Kozhikodan Biriyani (Calicut style)',cat:'Hotel & Restaurant',cal:680,prot:34,carb:78,fat:24,unit:'1 plate'},
+
+  // SHAWARMA & ARABIC
+  {id:'ar1',name:'Chicken Shawarma (small)',cat:'Shawarma & Arabic',cal:320,prot:18,carb:30,fat:14,unit:'1 small wrap (150g)'},
+  {id:'ar2',name:'Chicken Shawarma (full/big)',cat:'Shawarma & Arabic',cal:480,prot:26,carb:44,fat:20,unit:'1 full wrap (250g)'},
+  {id:'ar3',name:'Beef Shawarma (full)',cat:'Shawarma & Arabic',cal:510,prot:28,carb:44,fat:22,unit:'1 full wrap (250g)'},
+  {id:'ar4',name:'Shawarma Plate (with rice)',cat:'Shawarma & Arabic',cal:680,prot:30,carb:80,fat:22,unit:'1 plate'},
+  {id:'ar5',name:'Falafel Wrap',cat:'Shawarma & Arabic',cal:420,prot:14,carb:52,fat:18,unit:'1 wrap'},
+  {id:'ar6',name:'Hummus + Kuboos',cat:'Shawarma & Arabic',cal:360,prot:12,carb:52,fat:12,unit:'1 serving + bread'},
+  {id:'ar7',name:'Grilled Chicken Kuboos Wrap',cat:'Shawarma & Arabic',cal:460,prot:32,carb:48,fat:14,unit:'1 wrap'},
+  {id:'ar8',name:'Mandi Rice (chicken)',cat:'Shawarma & Arabic',cal:620,prot:34,carb:72,fat:20,unit:'1 plate (380g)'},
+  {id:'ar9',name:'Kabsa (Saudi style rice)',cat:'Shawarma & Arabic',cal:640,prot:32,carb:76,fat:20,unit:'1 plate (380g)'},
+  {id:'ar10',name:'Tikka Wrap (restaurant)',cat:'Shawarma & Arabic',cal:500,prot:30,carb:46,fat:20,unit:'1 wrap'},
+
+  // ICE CREAM & PARLOR
+  {id:'ic1',name:'Vanilla Ice Cream (2 scoops)',cat:'Ice Cream & Parlor',cal:240,prot:4,carb:32,fat:11,unit:'2 scoops (100g)'},
+  {id:'ic2',name:'Chocolate Ice Cream (2 scoops)',cat:'Ice Cream & Parlor',cal:280,prot:4,carb:36,fat:14,unit:'2 scoops (100g)'},
+  {id:'ic3',name:'Mango Ice Cream (2 scoops)',cat:'Ice Cream & Parlor',cal:250,prot:3,carb:36,fat:10,unit:'2 scoops (100g)'},
+  {id:'ic4',name:'Sundae (hot fudge)',cat:'Ice Cream & Parlor',cal:420,prot:6,carb:62,fat:18,unit:'1 sundae'},
+  {id:'ic5',name:'Banana Split',cat:'Ice Cream & Parlor',cal:540,prot:8,carb:76,fat:24,unit:'1 serving'},
+  {id:'ic6',name:'Waffle Cone Ice Cream (1 scoop)',cat:'Ice Cream & Parlor',cal:220,prot:3,carb:32,fat:9,unit:'1 cone'},
+  {id:'ic7',name:'Kulfi (malai)',cat:'Ice Cream & Parlor',cal:180,prot:4,carb:24,fat:8,unit:'1 stick (80g)'},
+  {id:'ic8',name:'Falooda',cat:'Ice Cream & Parlor',cal:320,prot:6,carb:54,fat:10,unit:'1 glass (350ml)'},
+  {id:'ic9',name:'Oreo Milkshake (blended)',cat:'Ice Cream & Parlor',cal:480,prot:8,carb:70,fat:20,unit:'1 glass (400ml)'},
+  {id:'ic10',name:'Tender Coconut Ice Cream',cat:'Ice Cream & Parlor',cal:210,prot:3,carb:28,fat:10,unit:'2 scoops'},
+];
+
+// ── CONSTANTS ──────────────────────────────────────────────────
+const MEAL_EMO = {'Early Morning':'🌙','Breakfast':'☀️','Morning Snack':'🍪','Lunch':'🌤','Evening Snack':'🌇','Dinner':'🌃','Post-Workout':'💪'};
+const ALL_CATS = ['All',...[...new Set(KERALA_FOODS.map(f=>f.cat))]];
+const QUICK_FOODS = ['e1','t1','dr4','fr2','sup4','e5','r1','c7'];
+const BURN_ACTS = [
+  {name:'Walking',icon:'🚶',met:3.5},
+  {name:'Running',icon:'🏃',met:9.8},
+  {name:'Gym',icon:'🏋️',met:6.0},
+  {name:'Cycling',icon:'🚴',met:7.5},
+  {name:'Swimming',icon:'🏊',met:8.0},
+  {name:'Yoga',icon:'🧘',met:3.0},
+];
+
+// ── STATE ──────────────────────────────────────────────────────
+let profile  = JSON.parse(localStorage.getItem('kd_p')||'null');
+let selFood  = null, activeCat = 'All';
+let burnSel  = null;
+const todayKey  = ()=>new Date().toISOString().slice(0,10);
+const getLog    = ()=>JSON.parse(localStorage.getItem('kd_l_'+todayKey())||'[]');
+const saveLog   = l=>localStorage.setItem('kd_l_'+todayKey(),JSON.stringify(l));
+const getWts    = ()=>JSON.parse(localStorage.getItem('kd_w')||'[]');
+const saveWts   = w=>localStorage.setItem('kd_w',JSON.stringify(w));
+const getWater  = ()=>parseInt(localStorage.getItem('kd_water_'+todayKey())||'0');
+const saveWater = n=>localStorage.setItem('kd_water_'+todayKey(),n);
+const getRecent = ()=>JSON.parse(localStorage.getItem('kd_recent')||'[]');
+const saveRecent= r=>localStorage.setItem('kd_recent',JSON.stringify(r.slice(0,8)));
+
+// ── INIT ──────────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  // Date
+  const now = new Date();
+  document.getElementById('hdrDate').textContent =
+    now.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+  document.getElementById('logDate').value = todayKey();
+
+  // Streak
+  calcStreak();
+
+  // Build UI
+  buildCats();
+  buildQuickGrid();
+  buildBurnRow();
+  buildWaterUI();
+
+  if(profile){loadFields();showResults();}
+  renderHome(); renderLog(); renderPlan(); renderWts();
+  renderRecent();
+
+  // Splash
+  setTimeout(()=>{
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(()=>document.getElementById('splash').remove(),500);
+  },1800);
+});
+
+// ── STREAK ────────────────────────────────────────────────────
+function calcStreak(){
+  const logs = [];
+  for(let i=0;i<30;i++){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    const l = JSON.parse(localStorage.getItem('kd_l_'+key)||'[]');
+    if(l.length>0) logs.push(key); else if(i>0) break;
+  }
+  const streak = logs.length;
+  if(streak>0){
+    document.getElementById('streakBadge').style.display='flex';
+    document.getElementById('streakNum').textContent=streak;
+  }
+}
+
+// ── NAV ───────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nb-'+id).classList.add('on');
+  if(id==='home')     renderHome();
+  if(id==='calories') renderLog();
+  if(id==='dietplan') renderPlan();
+  if(id==='tracker')  renderWts();
+  window.scrollTo(0,0);
+}
+
+// ── WATER ─────────────────────────────────────────────────────
+function buildWaterUI(){
+  const wrap = document.getElementById('waterGlasses');
+  const n = getWater();
+  let html='';
+  for(let i=0;i<8;i++){
+    html+=`<div class="wg${i<n?' full':''}" onclick="setWater(${i+1})" title="${i+1} glass">💧</div>`;
+  }
+  wrap.innerHTML=html;
+  document.getElementById('waterCount').textContent=n;
+}
+function setWater(n){
+  const cur=getWater();
+  saveWater(cur===n?n-1:n);
+  buildWaterUI();
+  showToast(`💧 ${getWater()} glasses logged`);
+}
+
+// ── QUICK GRID ────────────────────────────────────────────────
+function buildQuickGrid(){
+  const icons=['🥚','☕','🥥','🍌','🥜','🍳','🍚','🍗'];
+  const el=document.getElementById('quickGrid');
+  el.innerHTML=QUICK_FOODS.map((fid,i)=>{
+    const f=KERALA_FOODS.find(x=>x.id===fid);
+    if(!f)return'';
+    return`<div class="qcard" onclick="quickAdd('${f.id}')">
+      <div class="qcard-icon">${icons[i]||'🍽️'}</div>
+      <div class="qcard-name">${f.name.split('(')[0].trim()}</div>
+      <div class="qcard-cal">${f.cal} kcal</div>
+    </div>`;
+  }).join('');
+}
+function quickAdd(fid){
+  const f=KERALA_FOODS.find(x=>x.id===fid);
+  if(!f)return;
+  const meal=getMealByTime();
+  const log=getLog();
+  log.push({id:Date.now(),name:f.name,meal,qty:1,unit:f.unit,
+    cal:f.cal,prot:f.prot,carb:f.carb,fat:f.fat});
+  saveLog(log);
+  addToRecent(f.id);
+  showToast(`✅ ${f.name} — ${f.cal} kcal`);
+  renderHome(); renderLog(); updateLogDot();
+}
+function getMealByTime(){
+  const h=new Date().getHours();
+  if(h<6)return'Early Morning';
+  if(h<10)return'Breakfast';
+  if(h<12)return'Morning Snack';
+  if(h<15)return'Lunch';
+  if(h<18)return'Evening Snack';
+  if(h<21)return'Dinner';
+  return'Post-Workout';
+}
+
+// ── BURN ROW ──────────────────────────────────────────────────
+function buildBurnRow(){
+  const el=document.getElementById('burnRow');
+  if(!el)return;
+  el.innerHTML=BURN_ACTS.map((a,i)=>`
+    <div class="burn-item" id="burn-${i}" onclick="selectBurn(${i})">
+      <div class="burn-icon">${a.icon}</div>
+      <div class="burn-name">${a.name}</div>
+      <div class="burn-cal">MET ${a.met}</div>
+    </div>`).join('');
+}
+function selectBurn(i){
+  burnSel=i;
+  document.querySelectorAll('.burn-item').forEach((el,idx)=>el.classList.toggle('on',idx===i));
+  const wt=profile?profile.weight:70;
+  const cal=Math.round(BURN_ACTS[i].met*wt*0.5); // 30 min estimate
+  document.getElementById('burnResult').textContent=`~${cal} kcal / 30 min`;
+}
+
+// ── HOME ──────────────────────────────────────────────────────
+function renderHome(){
+  const log=getLog();
+  const tCal=log.reduce((s,i)=>s+i.cal,0);
+  const tP=log.reduce((s,i)=>s+i.prot,0);
+  const tC=log.reduce((s,i)=>s+i.carb,0);
+  const tF=log.reduce((s,i)=>s+i.fat,0);
+  const goal=profile?profile.goalCal:0;
+  const rem=goal-tCal;
+  const pct=goal?Math.min(tCal/goal,1):0;
+  const circ=351.86;
+  document.getElementById('ringArc').style.strokeDashoffset=circ-(pct*circ);
+  document.getElementById('ringNum').textContent=Math.round(tCal);
+  document.getElementById('rsGoal').textContent=goal||'—';
+  document.getElementById('rsLeft').textContent=goal?Math.max(0,Math.round(rem)):'—';
+  document.getElementById('rsLeft').className='rs-val '+(rem<0?'r':'g');
+  document.getElementById('rsItems').textContent=log.length;
+  const mP=profile?profile.macros.prot:150,mC=profile?profile.macros.carb:200,mF=profile?profile.macros.fat:60;
+  document.getElementById('mbP').textContent=`${Math.round(tP)}g / ${mP}g`;
+  document.getElementById('mbC').textContent=`${Math.round(tC)}g / ${mC}g`;
+  document.getElementById('mbF').textContent=`${Math.round(tF)}g / ${mF}g`;
+  document.getElementById('mbPf').style.width=(mP?Math.min(tP/mP*100,100):0)+'%';
+  document.getElementById('mbCf').style.width=(mC?Math.min(tC/mC*100,100):0)+'%';
+  document.getElementById('mbFf').style.width=(mF?Math.min(tF/mF*100,100):0)+'%';
+  updateLogDot();
+
+  const name=profile?profile.name:'Fitness Seeker';
+  const gLabel={cut:'Fat Loss 🔥',recomp:'Recomp 💪',maintain:'Maintain ⚖️',bulk:'Muscle Gain 📈'}[profile?.goal]||'';
+  const loseKg=profile?Math.max(0,(profile.weight-profile.target)).toFixed(1):0;
+  const bmi=profile?profile.bmi:'—';
+  document.getElementById('homeHero').innerHTML=`
+    <div class="hero">
+      <div class="hero-chip">MALABAR NUTRITION</div>
+      <div class="hero-name">Hey, <span>${name}</span> 👋</div>
+      <div class="hero-desc">${profile
+        ?`Goal: <strong>${gLabel}</strong> · Lose <strong>${loseKg} kg</strong> to reach <strong>${profile.target} kg</strong>`
+        :'Tap <strong>Profile</strong> to set your goals and get started!'}</div>
+      ${profile?`<div class="hero-stats">
+        <div class="hs"><div class="hs-val">${profile.goalCal}</div><div class="hs-lbl">Cal Goal</div></div>
+        <div class="hs"><div class="hs-val">${profile.macros.prot}g</div><div class="hs-lbl">Protein</div></div>
+        <div class="hs"><div class="hs-val">${bmi}</div><div class="hs-lbl">BMI</div></div>
+        <div class="hs"><div class="hs-val">${loseKg}kg</div><div class="hs-lbl">To Lose</div></div>
+      </div>`:''}
+    </div>`;
+}
+function updateLogDot(){
+  const dot=document.getElementById('logDot');
+  if(dot) dot.classList.toggle('show', getLog().length>0);
+}
+
+// ── PROFILE ───────────────────────────────────────────────────
+function saveProfile(){
+  const name=document.getElementById('pName').value.trim()||'User';
+  const age=+document.getElementById('pAge').value;
+  const gender=document.getElementById('pGender').value;
+  const height=+document.getElementById('pHeight').value;
+  const weight=+document.getElementById('pWeight').value;
+  const target=+document.getElementById('pTarget').value;
+  const activity=+document.getElementById('pActivity').value;
+  const goal=document.getElementById('pGoal').value;
+  const diet=document.getElementById('pDiet').value;
+  if(!age||!height||!weight||!target){showToast('⚠️ Fill all required fields');return;}
+  const bmr=gender==='male'?10*weight+6.25*height-5*age+5:10*weight+6.25*height-5*age-161;
+  const tdee=bmr*activity;
+  const goalCal=Math.round(goal==='cut'?tdee-500:goal==='bulk'?tdee+300:goal==='recomp'?tdee-200:tdee);
+  const protG=Math.round(goal==='cut'?weight*2:weight*1.8);
+  const fatG=Math.round(goalCal*0.25/9);
+  const carbG=Math.round((goalCal-protG*4-fatG*9)/4);
+  const bmi=+(weight/((height/100)**2)).toFixed(1);
+  profile={name,age,gender,height,weight,target,activity,goal,diet,
+    bmr:Math.round(bmr),tdee:Math.round(tdee),goalCal,
+    macros:{prot:protG,carb:carbG,fat:fatG},
+    bmi,loseKg:+Math.max(0,weight-target).toFixed(1)};
+  localStorage.setItem('kd_p',JSON.stringify(profile));
+  showResults(); renderHome(); renderPlan(); calcStreak();
+  showToast('✅ Profile saved!');
+}
+function loadFields(){
+  if(!profile)return;
+  ['pName','pAge','pHeight','pWeight','pTarget'].forEach(id=>{
+    const map={pName:'name',pAge:'age',pHeight:'height',pWeight:'weight',pTarget:'target'};
+    if(profile[map[id]]!==undefined) document.getElementById(id).value=profile[map[id]];
+  });
+  document.getElementById('pGender').value=profile.gender||'male';
+  document.getElementById('pActivity').value=profile.activity||'1.55';
+  document.getElementById('pGoal').value=profile.goal||'cut';
+  document.getElementById('pDiet').value=profile.diet||'nonveg';
+}
+function showResults(){
+  if(!profile)return;
+  document.getElementById('pResults').style.display='block';
+  const bmi=profile.bmi;
+  let cat,cls;
+  if(bmi<18.5){cat='Underweight';cls='b';}
+  else if(bmi<25){cat='Normal';cls='g';}
+  else if(bmi<30){cat='Overweight';cls='a';}
+  else{cat='Obese';cls='r';}
+  document.getElementById('rBMI').textContent=bmi;
+  document.getElementById('rCat').textContent=cat;
+  document.getElementById('rCat').className='sc-val '+cls;
+  document.getElementById('bmiPin').style.left=Math.min(Math.max((bmi-14)/26*100,2),98)+'%';
+  document.getElementById('rLose').textContent=profile.loseKg+'kg';
+  document.getElementById('rWeeks').textContent=Math.ceil(profile.loseKg/0.5)+'w';
+  document.getElementById('rBMR').textContent=profile.bmr;
+  document.getElementById('rTDEE').textContent=profile.tdee;
+  document.getElementById('rGoal').textContent=profile.goalCal;
+  document.getElementById('rProt').textContent=profile.macros.prot+'g';
+  document.getElementById('rCarb').textContent=profile.macros.carb+'g';
+  document.getElementById('rFat').textContent=profile.macros.fat+'g';
+  buildBurnRow();
+}
+
+// ── FOOD TRACKER ──────────────────────────────────────────────
+function buildCats(){
+  document.getElementById('catPills').innerHTML=
+    ALL_CATS.map(c=>`<button class="cat${c==='All'?' on':''}" onclick="setCat('${c.replace(/&/g,'&amp;').replace(/'/g,"\\'")}')">${c}</button>`).join('');
+}
+function setCat(cat){
+  activeCat=cat;
+  document.querySelectorAll('.cat').forEach(p=>p.classList.toggle('on',p.textContent===cat));
+  filterFoods();
+}
+function filterFoods(){
+  const q=document.getElementById('foodSrch').value.trim().toLowerCase();
+  const dd=document.getElementById('foodDD');
+  const clr=document.getElementById('srchClear');
+  if(clr) clr.classList.toggle('show',q.length>0);
+  const res=KERALA_FOODS.filter(f=>(activeCat==='All'||f.cat===activeCat)&&(!q||f.name.toLowerCase().includes(q)||f.cat.toLowerCase().includes(q)));
+  document.getElementById('fcount').textContent=res.length?`${res.length} item${res.length!==1?'s':''} found`:'';
+  if(!res.length){dd.classList.remove('open');return;}
+  dd.innerHTML=res.slice(0,35).map(f=>`
+    <div class="ddi" onclick="pickFood('${f.id}')">
+      <div class="ddi-left">
+        <div class="ddi-name">${f.name}</div>
+        <div class="ddi-sub">${f.cat} · ${f.unit}</div>
+      </div>
+      <div class="ddi-right">
+        <div class="ddi-cal">${f.cal}</div>
+        <div class="ddi-mac">P:${f.prot} C:${f.carb} F:${f.fat}</div>
+      </div>
+    </div>`).join('');
+  dd.classList.add('open');
+}
+function clearSearch(){
+  document.getElementById('foodSrch').value='';
+  document.getElementById('foodDD').classList.remove('open');
+  document.getElementById('srchClear').classList.remove('show');
+  document.getElementById('fcount').textContent='';
+}
+function pickFood(id){
+  selFood=KERALA_FOODS.find(f=>f.id===id);
+  document.getElementById('foodSrch').value=selFood.name;
+  document.getElementById('foodDD').classList.remove('open');
+  document.getElementById('selName').textContent=selFood.name;
+  document.getElementById('selPer').textContent=`${selFood.cal} kcal · ${selFood.unit}`;
+  document.getElementById('qtyIn').value=1;
+  document.getElementById('selRow').style.display='flex';
+  if(document.getElementById('srchClear'))
+    document.getElementById('srchClear').classList.add('show');
+}
+function addFood(){
+  if(!selFood){showToast('Select a food first');return;}
+  const qty=parseFloat(document.getElementById('qtyIn').value)||1;
+  const meal=document.getElementById('mealTime').value;
+  const log=getLog();
+  log.push({
+    id:Date.now(),name:selFood.name,meal,qty,unit:selFood.unit,
+    cal:Math.round(selFood.cal*qty),
+    prot:parseFloat((selFood.prot*qty).toFixed(1)),
+    carb:parseFloat((selFood.carb*qty).toFixed(1)),
+    fat:parseFloat((selFood.fat*qty).toFixed(1)),
+  });
+  saveLog(log);
+  addToRecent(selFood.id);
+  showToast(`✅ Added · ${Math.round(selFood.cal*qty)} kcal`);
+  clearSearch();
+  document.getElementById('selRow').style.display='none';
+  selFood=null;
+  renderLog(); renderHome(); renderRecent(); updateLogDot(); calcStreak();
+}
+function addToRecent(id){
+  let r=getRecent().filter(x=>x!==id);
+  r.unshift(id);
+  saveRecent(r);
+}
+function renderRecent(){
+  const r=getRecent();
+  const sec=document.getElementById('recentSection');
+  const chips=document.getElementById('recentChips');
+  if(!r.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  chips.innerHTML=r.slice(0,6).map(id=>{
+    const f=KERALA_FOODS.find(x=>x.id===id);
+    if(!f)return'';
+    return`<div class="rchip" onclick="pickFood('${f.id}')"><span>${f.name}</span><span style="color:var(--gold);font-size:10px;flex-shrink:0">${f.cal}</span></div>`;
+  }).join('');
+}
+function delEntry(id){
+  saveLog(getLog().filter(e=>e.id!==id));
+  renderLog();renderHome();updateLogDot();
+}
+function clearDay(){
+  if(!confirm('Clear today\'s food log?'))return;
+  localStorage.removeItem('kd_l_'+todayKey());
+  renderLog();renderHome();updateLogDot();showToast('🗑 Log cleared');
+}
+function renderLog(){
+  const log=getLog();
+  const MEALS=['Early Morning','Breakfast','Morning Snack','Lunch','Evening Snack','Dinner','Post-Workout'];
+  const el=document.getElementById('mealLog');
+  if(!log.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">🍽️</div><p>Nothing logged yet.<br>Search above or use Quick Add on Home!</p></div>`;
+    document.getElementById('dayTotal').style.display='none';return;
+  }
+  let html='';
+  MEALS.forEach(m=>{
+    const items=log.filter(e=>e.meal===m);
+    if(!items.length)return;
+    const mc=items.reduce((s,i)=>s+i.cal,0);
+    html+=`<div class="card meal-block">
+      <div class="meal-hdr">
+        <div class="meal-title">${MEAL_EMO[m]||'🍽️'} ${m} <span class="meal-badge">${mc} kcal</span></div>
+      </div>
+      ${items.map(e=>`<div class="log-item">
+        <div class="log-left">
+          <div class="log-name">${e.name}</div>
+          <div class="log-meta">×${e.qty} · P:${e.prot}g C:${e.carb}g F:${e.fat}g</div>
+        </div>
+        <div class="log-right">
+          <div class="log-cal">${e.cal}</div>
+          <button class="pill pill-rose" style="padding:5px 10px;font-size:11px;" onclick="delEntry(${e.id})">✕</button>
+        </div>
+      </div>`).join('')}
+    </div>`;
+  });
+  el.innerHTML=html;
+  const tC=log.reduce((s,i)=>s+i.cal,0);
+  const tP=log.reduce((s,i)=>s+i.prot,0);
+  const tCb=log.reduce((s,i)=>s+i.carb,0);
+  const tF=log.reduce((s,i)=>s+i.fat,0);
+  const g=profile?profile.goalCal:0,r=g-tC;
+  document.getElementById('totCal').textContent=tC;
+  document.getElementById('totRem').textContent=g?(r>=0?'+'+Math.round(r):Math.round(r)):'—';
+  document.getElementById('totRem').className='sc-val '+(r<0?'r':'g');
+  document.getElementById('totP').textContent=Math.round(tP)+'g';
+  document.getElementById('totCb').textContent=Math.round(tCb)+'g';
+  document.getElementById('totF').textContent=Math.round(tF)+'g';
+  document.getElementById('totItems').textContent=log.length;
+  document.getElementById('dayTotal').style.display='block';
+}
+
+// ── DIET PLAN ─────────────────────────────────────────────────
+function renderPlan(){
+  const el=document.getElementById('planContent');
+  if(!profile){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">🥗</div><p>Set up your Profile first to get your personalised daily plan!</p></div>
+    <button class="btn btn-gold" onclick="showPage('profile')">Set Up Profile →</button>`;
+    return;
+  }
+  const isNV=profile.diet==='nonveg', isCut=profile.goal==='cut', isBulk=profile.goal==='bulk';
+
+  const meals=[
+    {time:'5:00–6:00 AM',label:'Early Morning',emoji:'🌙',
+     name:'Warm Jeera Water + Soaked Almonds',
+     desc:'1 glass warm water with ½ tsp cumin seeds + 10 soaked almonds. Kickstarts metabolism, zero processed sugar. Sets your digestive system for the day.',
+     alts:'Restaurant alt: Nothing from outside — do this at home. It\'s 5 AM.',
+     kcal:65,prot:3,carb:3,fat:4},
+    {time:'7:30–8:30 AM',label:'Breakfast',emoji:'☀️',
+     name:isNV?(isBulk?'Mani (6) + Chicken Curry + 3 Boiled Eggs':isCut?'3 Egg White Omelette + 2 Appam':'Mani (6 pcs) + Chicken Curry + Boiled Egg'):'Puttu + Kadala Curry + Papaya',
+     desc:isNV?(isBulk?'High-calorie muscle breakfast. Mani (authentic Malabar steamed rice balls) + nadan chicken curry + extra boiled eggs for protein.'
+      :isCut?'High-protein, lower-carb start. 3 egg white omelette with green chilli + onion + 2 soft appam. Classic Kannur morning.'
+      :'Mani with nadan chicken curry + 1 boiled egg. The authentic Malabar power breakfast.')
+      :'Puttu + black chickpea curry + papaya on the side. Plant protein powerhouse.',
+     alts:`Hotel alt: Egg omelette + bread toast. Bakery alt: ${isNV?'Egg puff (295 kcal) — fine once a week':'Masala dosa set'}.`,
+     kcal:isNV?(isBulk?560:isCut?360:470):395,prot:isNV?(isBulk?40:isCut?22:30):13,carb:isNV?(isBulk?52:isCut?35:46):68,fat:isNV?18:9},
+    {time:'10:30–11:00 AM',label:'Morning Snack',emoji:'🍪',
+     name:isCut?'Sulaimani Tea + 1 Fruit':'Kerala Chai + Pazhampori (1) or Cutlet',
+     desc:isCut?'Zero-calorie spiced black tea (Sulaimani) + 1 guava or papaya. Minimal calories, maximum micronutrients. Resist the bakery.'
+      :'The Kannur 10 AM ritual — 1 cup chai + one snack from the bakery. Egg puff, cutlet, or pazhampori are all fine in moderation.',
+     alts:isCut?'Cafe alt: Black coffee or green tea. Nothing from the bakery display case.':'Cafe alt: Cappuccino + croissant (but 400+ kcal combined, count it).',
+     kcal:isCut?65:200,prot:isCut?0.5:4,carb:isCut?15:30,fat:isCut?0:8},
+    {time:'1:00–2:00 PM',label:'Lunch',emoji:'🌤',
+     name:isNV?(isCut?'Matta Rice (1 cup) + Mathi Curry + Thoran + Moru':isBulk?'Matta Rice (2 cups) + Chicken Curry + Dal + Avial':'Matta Rice + Chicken Curry + Sambar + Thoran')
+      :'Matta Rice + Dal + Sambar + Thoran + Pickle',
+     desc:isNV?(isCut?'The ideal Kannur fat-loss plate. Red rice (lower GI), sardine for omega-3 + lean protein, thoran for fibre, moru for digestion and gut health.'
+      :isBulk?'High-calorie muscle-building lunch. Double rice, protein-rich chicken curry, dal + avial for micronutrients.'
+      :'Balanced Malabar lunch. Red rice, chicken, sambar, vegetable thoran — complete macros in one plate.')
+      :'Matta rice + parippu curry + sambar + thoran + pickle. Balanced plant lunch with good fibre and protein.',
+     alts:`Hotel alt: ${isNV?'Chicken biryani (560 kcal) or Fish meals plate. Count it.':'Veg biryani or South Indian meals at any hotel.'} Restaurant: ${isNV?'Malabar Chicken biryani or Thalassery Biryani (560–600 kcal).':'Dal makhani + 2 chapati.'}`,
+     kcal:isNV?(isCut?510:isBulk?780:640):490,prot:isNV?(isCut?28:isBulk?38:30):14,carb:isNV?(isCut?58:isBulk?98:70):74,fat:isNV?16:10},
+    {time:'4:00–5:00 PM',label:'Evening Snack',emoji:'🌇',
+     name:isCut?'Coconut Water + Roasted Groundnuts':'Kerala Chai + Bakery Snack OR Juice Parlor',
+     desc:isCut?'Tender coconut water (46 kcal, full of electrolytes) + 30g roasted groundnuts (protein + healthy fats). Kills pre-dinner hunger without wrecking your deficit.'
+      :'The Kannur evening window. Chai + 1 snack OR visit a juice bar for a fresh mojito or fruit juice.',
+     alts:isCut?'Juice bar alt: Green detox juice or lime soda (no sugar) = 15–80 kcal. Much better than a Sharjah shake.'
+      :'Juice bar: Strawberry mojito (130 kcal), mango lassi (240 kcal), or fresh OJ. Cafe: Cold coffee (240 kcal).',
+     kcal:isCut?135:220,prot:isCut?7:4,carb:isCut?12:30,fat:isCut?9:5},
+    {time:'7:30–8:30 PM',label:'Dinner',emoji:'🌙',
+     name:isNV?(isCut?'2 Chapati + Grilled Tuna/Ayala Curry + Salad':isBulk?'Pathiri (4) + Chicken Roast':'Pathiri (3) + Malabar Chicken Curry')
+      :(isCut?'2 Chapati + Dal + Cucumber Raita':'Appam (2) + Vegetable Stew'),
+     desc:isNV?(isCut?'Light, high-protein dinner. Chapati + fish curry (no rice at night) + fresh cucumber-tomato salad. Under 360 kcal, 28g protein.'
+      :isBulk?'Higher-calorie muscle dinner. 4 thin pathiris + Kerala chicken roast. Add 1–2 boiled eggs if needed.'
+      :'Pathiri (thin rice pancake, much lighter than rice) + Malabar-style coconut chicken curry. Classic Kannur dinner.')
+      :(isCut?'Light plant dinner — chapati + lentils + raita. Easy to digest, good sleep quality.'
+      :'Light appam + vegetable stew. Gentle on digestion, ideal before sleep.'),
+     alts:`Restaurant alt: ${isNV?'Chicken shawarma (480 kcal) — fine occasionally. Pizza slice (320 kcal) + salad = decent dinner. Avoid parotta + beef at night (620 kcal, hard to digest).':'Veg wrap or pasta arrabiata at a cafe.'}`,
+     kcal:isNV?(isCut?345:isBulk?520:415):(isCut?290:310),prot:isNV?(isCut?28:isBulk?30:24):(isCut?14:10),carb:isNV?(isCut?30:isBulk?48:38):(isCut?34:40),fat:isNV?(isCut?12:20):8},
+    {time:'9:30–10:00 PM',label:'Before Bed',emoji:'🌛',
+     name:'Turmeric Milk (Manjal Paal)',
+     desc:'1 glass warm low-fat milk + ½ tsp turmeric + pinch of black pepper. Anti-inflammatory, aids sleep quality, supports overnight muscle recovery.',
+     alts:'Alternative: Jeera water (10 kcal) or chamomile tea. Avoid: Sharjah shake, milkshakes, or anything heavy.',
+     kcal:62,prot:3,carb:7,fat:2},
+  ];
+
+  const totalPCal=meals.reduce((s,m)=>s+m.kcal,0);
+  el.innerHTML=`
+    <div class="card" style="background:linear-gradient(145deg,#16100A,var(--ink3));border-color:rgba(212,146,42,0.22);text-align:center;padding:22px 18px;">
+      <div class="eyebrow" style="text-align:center;display:block;">Full Day Plan</div>
+      <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;margin:4px 0 6px;">${totalPCal}</div>
+      <div style="font-size:12px;color:var(--text2);">kcal total &nbsp;·&nbsp; Your goal: <strong style="color:var(--text)">${profile.goalCal} kcal</strong></div>
+      <div class="div"></div>
+      <div class="sgrid sg3" style="margin-bottom:0;">
+        <div class="sc" style="background:var(--ink4);"><div class="sc-val t">${meals.reduce((s,m)=>s+m.prot,0)}g</div><div class="sc-lbl">Protein</div></div>
+        <div class="sc" style="background:var(--ink4);"><div class="sc-val a">${meals.reduce((s,m)=>s+m.carb,0)}g</div><div class="sc-lbl">Carbs</div></div>
+        <div class="sc" style="background:var(--ink4);"><div class="sc-val g">${meals.reduce((s,m)=>s+m.fat,0)}g</div><div class="sc-lbl">Fats</div></div>
+      </div>
+    </div>
+    <div class="pcards">
+    ${meals.map(m=>`<div class="pcard">
+      <div class="pc-time">${m.emoji} ${m.time} — ${m.label}</div>
+      <div class="pc-name">${m.name}</div>
+      <div class="pc-desc">${m.desc}</div>
+      <div class="pc-alts"><strong>💡 Alt options:</strong> ${m.alts}</div>
+      <div class="pc-tags">
+        <span class="ptag ptag-c">🔥 ${m.kcal} kcal</span>
+        <span class="ptag ptag-p">💪 ${m.prot}g protein</span>
+        <span class="ptag ptag-cb">🌾 ${m.carb}g carbs</span>
+      </div>
+    </div>`).join('')}
+    </div>
+    <div class="eyebrow section-gap">Best Kerala Foods for Your Goal</div>
+    <div class="tip"><strong>✅ Top proteins:</strong> Sardine, Tuna, Mackerel, Prawn, Chicken breast, Egg white, Seer fish, Crab, Chicken tikka (grilled).</div>
+    <div class="tip"><strong>✅ Smart carbs:</strong> Matta rice, Idiyappam, Puttu, Mani, Pathiri, Chapati, Brown bread, Tapioca (limited).</div>
+    <div class="tip"><strong>✅ Best veg sides:</strong> Avial, Thoran, Drumstick curry, Cherupayar, Kadala, Ash gourd, Spinach cheera.</div>
+    <div class="tip info"><strong>✅ Cafe / restaurant smart picks:</strong> Grilled chicken salad, Tandoori chicken, Caesar salad (no croutons), Shawarma (wheat wrap), Chicken tikka masala (skip the naan).</div>
+    <div class="tip warn"><strong>⚠️ Limit daily:</strong> Parotta, Sharjah shake, Banana chips, Pampari (fried), Payasam, Beef puff, Calicut Halwa.</div>
+    <div class="tip warn"><strong>⚠️ Restaurant extras that kill goals:</strong> Extra rice refills, free bread baskets, sugary mocktails (120–200 kcal each), dessert after every meal.</div>`;
+}
+
+// ── WEIGHT LOG ────────────────────────────────────────────────
+function logWeight(){
+  const w=parseFloat(document.getElementById('logWt').value);
+  const d=document.getElementById('logDate').value;
+  if(!w||!d){showToast('⚠️ Enter weight and date');return;}
+  const wts=getWts(),ei=wts.findIndex(e=>e.date===d);
+  if(ei>=0)wts[ei].weight=w;else wts.unshift({date:d,weight:w});
+  wts.sort((a,b)=>b.date.localeCompare(a.date));
+  saveWts(wts);
+  document.getElementById('logWt').value='';
+  renderWts(); showToast('⚖️ Weight saved!'); calcStreak();
+}
+function delWt(i){const wts=getWts();wts.splice(i,1);saveWts(wts);renderWts();}
+function renderWts(){
+  const wts=getWts(),el=document.getElementById('wtLog'),ps=document.getElementById('progStats');
+  if(!wts.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📊</div><p>No entries yet.</p></div>`;ps.style.display='none';return;}
+  ps.style.display='block';
+  const start=wts[wts.length-1].weight,cur=wts[0].weight;
+  const lost=+(start-cur).toFixed(1);
+  const lT=profile?start-profile.target:null;
+  const pct=(lT&&lT>0)?Math.min(Math.max((start-cur)/lT*100,0),100).toFixed(0):0;
+  document.getElementById('pgStart').textContent=start+'kg';
+  document.getElementById('pgNow').textContent=cur+'kg';
+  document.getElementById('pgLost').textContent=(lost>=0?'−':'+')+Math.abs(lost)+'kg';
+  document.getElementById('pgLost').className='sc-val '+(lost>=0?'g':'r');
+  document.getElementById('pgPct').textContent=pct+'%';
+  document.getElementById('pgBar').style.width=pct+'%';
+  el.innerHTML=wts.map((e,i)=>{
+    const prev=wts[i+1];
+    const diff=prev?+(e.weight-prev.weight).toFixed(1):null;
+    const dh=diff!=null?`<span style="font-size:12px;font-weight:700;color:${diff<0?'var(--sage)':'var(--rose)'}">${diff>0?'+':''}${diff}kg</span>`:'';
+    return`<div class="wt-item">
+      <div>
+        <div class="wt-val">${e.weight} kg</div>
+        <div class="wt-date">${new Date(e.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'2-digit'})}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">${dh}
+        <button class="pill pill-rose" style="padding:5px 10px;font-size:11px;" onclick="delWt(${i})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// Close dropdown on outside tap
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.srch-wrap')&&!e.target.closest('.dd'))
+    document.getElementById('foodDD').classList.remove('open');
+});
+</script>
+</body>
+</html>
